@@ -1,0 +1,10 @@
+
+---
+# 生产配置
+spring:
+  profiles: product
+
+
+# 配置端口
+server:
+  port: 8082
