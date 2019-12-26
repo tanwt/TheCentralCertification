@@ -1,10 +1,12 @@
 
----
-
-# 开发配置
 spring:
-  profiles: dev
-
-# 配置端口
-server:
-  port: 8081
+  datasource:
+    druid:
+      max-active: 300
+      max-pool-prepared-statement-per-connection-size: 100
+      abs:
+        database: central_certification
+        host: 120.79.94.90
+        port: 3306
+        username: root
+        password: 123456

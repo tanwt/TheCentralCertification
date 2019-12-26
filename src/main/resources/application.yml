@@ -2,3 +2,40 @@
 spring:
   profiles:
     active: ${spring.profiles.active}
+
+
+  #  数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.79.94.90:3306/central_certification?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+
+mybatis:
+  mapper-locations: 'classpath:mapper/**/*.xml'
+  mapper-scan: 'com.jike'
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    cache-enabled: true
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    use-column-label: true
+    use-generated-keys: false
+    auto-mapping-behavior: partial
+    safe-row-bounds-enabled: false
+    local-cache-scope: session
+    jdbc-type-for-null: other
+    lazy-load-trigger-methods: equals,clone,hashCode,toString
+    vfs-impl: org.mybatis.spring.boot.autoconfigure.SpringBootVFS
+  plugins:
+    pagehelper:
+      dialect: mysql
+      offsetAsPageNum: true
+      rowBoundsWithCount: true
+      pageSizeZero: true
+      reasonable: false
+      parabs: 'pageNum=pageHelperStart;pageSize=pageHelperRows;'
+      supportMethodsArguments: false
+      returnPageInfo: none
