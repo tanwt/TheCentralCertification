@@ -4,6 +4,7 @@ import com.jike.certification.model.Response;
 import com.jike.certification.service.VerifyCodeService;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class VerifyCodeController {
     private VerifyCodeService verifyCodeService;
 
     @GetMapping("sendVerifyCode")
+    @ApiOperation(value = "发送验证码")
     public Response<Long> sendVerifyCode(String mail){
         return ResponseUtil.makeSuccess(verifyCodeService.sendVerifyCodeByMail(mail));
     }

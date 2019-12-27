@@ -5,6 +5,7 @@ import com.jike.certification.model.user.UserRegisterReq;
 import com.jike.certification.service.UserService;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("register")
+    @ApiOperation(value = "用户注册")
     public Response<Long> register(@Valid @RequestBody UserRegisterReq userRegisterReq){
         return ResponseUtil.makeSuccess(userService.userRegister(userRegisterReq));
     }

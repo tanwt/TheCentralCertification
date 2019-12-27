@@ -18,15 +18,15 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "用户登陆请求类")
 public class UserRegisterReq {
     @ApiModelProperty(value = "用户名 ")
-    @NotNull
+    @NotNull(message = "用户名不能为空")
     private String userName;
     @ApiModelProperty(value = "邮箱 ")
-    @NotNull
+    @NotNull(message = "邮箱不能为空")
     private String mail;
     @ApiModelProperty(value = "用户密码 ")
-    @NotNull
+    @NotNull(message = "密码不能为空")
     private String password;
     @ApiModelProperty(value = "验证码")
-    @NotNull
+    @NotNull(message = "验证码不能为空")
     private String verifyCode;
 }
