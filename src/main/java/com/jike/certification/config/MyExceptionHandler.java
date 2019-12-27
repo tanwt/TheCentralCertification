@@ -1,4 +1,4 @@
-package com.jike.certification.config.error;
+package com.jike.certification.config;
 
 import com.jike.certification.exception.ApiRuntimeException;
 import com.jike.certification.model.Response;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 全局异常捕获
  * @author wentong
  * @date 2019-12-27
  */

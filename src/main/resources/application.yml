@@ -55,3 +55,7 @@ mybatis:
       parabs: 'pageNum=pageHelperStart;pageSize=pageHelperRows;'
       supportMethodsArguments: false
       returnPageInfo: none
+
+# swagger 打开配置
+swagger:
+  enable: true
