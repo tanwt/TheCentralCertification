@@ -10,6 +10,22 @@ spring:
     url: jdbc:mysql://120.79.94.90:3306/central_certification?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
+  # 邮件配置
+  mail:
+    host: smtp.qq.com
+    username: 799957684@qq.com
+    # 设置密码，该处的密码是QQ邮箱开启SMTP的授权码而非QQ密码
+    password: fedpazqryszubeij
+    properties:
+      mail:
+        smtp:
+          # 设置是否需要认证，如果为true,那么用户名和密码就必须的，
+          # 如果设置false，可以不设置用户名和密码，当然也得看你的对接的平台是否支持无密码进行访问的。
+          auth: true
+          ## STARTTLS[1]  是对纯文本通信协议的扩展。它提供一种方式将纯文本连接升级为加密连接（TLS或SSL），而不是另外使用一个端口作加密通信。
+          starttls:
+            enable: true
+            required: true
 
 mybatis:
   mapper-locations: 'classpath:mapper/**/*.xml'

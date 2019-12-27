@@ -1,7 +1,8 @@
 package com.jike.certification.controller;
 
 import com.jike.certification.model.Response;
-import com.jike.certification.model.User;
+import com.jike.certification.model.user.User;
+import com.jike.certification.model.user.UserLoginReq;
 import com.jike.certification.service.UserService;
 import com.jike.certification.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("addUser")
-    public Response<Long> addUser(@RequestBody User user){
-        return ResponseUtil.makeSuccess(userService.addUser(user));
+    @PostMapping("login")
+    public Response<Long> login(@RequestBody UserLoginReq userLoginReq){
+        return ResponseUtil.makeSuccess(null);
     }
 }

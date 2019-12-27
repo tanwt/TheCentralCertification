@@ -1,6 +1,6 @@
 package com.jike.certification.dao;
 
-import com.jike.certification.model.User;
+import com.jike.certification.model.user.User;
 
 /**
  * @author wentong

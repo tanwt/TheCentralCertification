@@ -1,7 +1,7 @@
 package com.jike.certification.service;
 
 import com.jike.certification.biz.UserBiz;
-import com.jike.certification.model.User;
+import com.jike.certification.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

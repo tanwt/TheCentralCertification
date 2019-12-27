@@ -12,7 +12,7 @@
         update_time
     </sql>
 
-    <insert id="save" parameterType="com.jike.certification.model.User"
+    <insert id="save" parameterType="com.jike.certification.model.user.User"
             keyProperty="id" useGeneratedKeys="true">
         INSERT INTO user
         <trim prefix="(" suffix=")"  suffixOverrides=",">

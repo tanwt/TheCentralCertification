@@ -1,4 +1,4 @@
-package com.jike.certification.model;
+package com.jike.certification.model.user;
 
 import lombok.*;
 
@@ -16,10 +16,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class User {
     private Long id;
-    @NotNull
     private String userName;
-    @NotNull
     private String password;
+    private String mail;
     private Integer deleted;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;

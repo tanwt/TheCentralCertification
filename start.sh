@@ -1,5 +1,5 @@
 #!/bin/bash
-path="/Users/wentong/project/TheCentralCertification/target/"
+path="target/"
 fileName="certification"
 version="0.0.1-SNAPSHOT"
 environment="dev"
