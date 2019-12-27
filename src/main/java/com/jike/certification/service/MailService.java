@@ -22,6 +22,7 @@ public class MailService {
     private String from;
 
     public void sendSimpleMail(String to, String subject, String content) {
+        checkMail(to);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(to);
