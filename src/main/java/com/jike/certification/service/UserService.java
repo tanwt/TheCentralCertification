@@ -47,17 +47,19 @@ public class UserService {
         VerifyCode verifyCode = verifyCodeService.queryLastValidCode(userRegisterReq.getMail());
         MyAssert.notNull(verifyCode, "验证失效或邮箱输入错误，请检查邮箱或重新获取验证码");
         // 判断验证码是否对等
-        if (userRegisterReq.getVerifyCode().equals(verifyCode.getVerifyCode())) {
+        if (userRegisterReq.getVerifyCode().equals(verifyCode.getCode())) {
             User oldUser = userBiz.queryByMail(userRegisterReq.getMail());
             // 判断邮箱有没有重复
             if (oldUser != null && oldUser.getMail().equals(userRegisterReq.getMail())){
                 verifyCode.setStatus(VerifyCodeEnum.VERIFY_FAIL.getStatus());
                 verifyCodeService.update(verifyCode);
+                verifyCode.setVerifyCode(userRegisterReq.getVerifyCode());
                 throw new ApiRuntimeException(ErrorCode.USER_ACCOUNT_MAIL_DUPLICATE);
             } else {
                 User user = new User();
                 BeanUtils.copyProperties(userRegisterReq, user);
                 verifyCode.setStatus(VerifyCodeEnum.VERIFY_SUCCESS.getStatus());
+                verifyCode.setVerifyCode(userRegisterReq.getVerifyCode());
                 verifyCodeService.update(verifyCode);
                 return userBiz.save(user);
             }
