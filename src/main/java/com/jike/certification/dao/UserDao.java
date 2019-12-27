@@ -8,5 +8,7 @@ import com.jike.certification.model.user.User;
  */
 
 public interface UserDao {
-    public Long save(User user);
+    Long save(User user);
+
+    User queryByMail(String mail);
 }

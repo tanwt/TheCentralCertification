@@ -1,8 +1,10 @@
 package com.jike.certification.model.user;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -14,15 +16,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+@ApiModel("用户标准返回")
+public class UserVO {
+    @ApiModelProperty("用户自增id")
     private Long id;
-    @NotNull
+    @ApiModelProperty("用户名")
     private String userName;
-    @NotNull
-    private String password;
-    @NotNull
+    @ApiModelProperty("用户邮箱")
     private String mail;
-    private Integer deleted;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
 }

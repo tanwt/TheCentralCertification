@@ -7,6 +7,7 @@
         id,
         user_name,
         password,
+        mail,
         deleted,
         create_time,
         update_time
@@ -22,6 +23,9 @@
             <if test="userName != null" >
                 user_name,
             </if>
+            <if test="mail != null" >
+                mail,
+            </if>
             <if test="password != null" >
                 password,
             </if>
@@ -33,10 +37,20 @@
             <if test="userName != null" >
                 #{userName},
             </if>
+            <if test="mail != null" >
+                #{mail},
+            </if>
             <if test="password != null" >
                 #{password},
             </if>
         </trim>
     </insert>
+
+    <select id="queryByMail" resultType="com.jike.certification.model.user.User">
+        SELECT <include refid="baseSql" />
+        FROM user
+        WHERE mail = #{mail}
+        AND deleted = 0
+    </select>
 
 </mapper>

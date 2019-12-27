@@ -29,6 +29,7 @@ public enum ErrorCode {
     SYSTEM_ERROR_PARAM_ASSERT_FAILED(10306, "内部调用参数错误"),
     SYSTEM_PARAM_ERROR_NOT_EXISTS(10307, "记录不存在"),
     SYSTEM_PARAM_ERROR_ALREADY_EXISTS(10308, "记录重复"),
+    SYSTEM_VERIFY_CODE_ERROR(10309, "验证码错误"),
 
     // 20XXX:用户-账户
     USER_ACCOUNT_NO_LOGIN(20001, "未登录"),
@@ -60,6 +61,7 @@ public enum ErrorCode {
     USER_ACCOUNT_BIND_MOBILE_ERROR(20206, "绑定手机号失败"),
     USER_ACCOUNT_GET_TOKEN_FAILED(20207, "获取token失败"),
     PARTNER_SECRET_ERROR(20208, "partner secret错误"),
+    USER_ACCOUNT_MAIL_DUPLICATE(20209, "用户邮箱已经存在"),
 
     // 21XXX:用户-用户
     USER_INFO_ID_CARD_ERROR(21001, "请输入正确身份证号码"),

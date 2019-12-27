@@ -1,5 +1,7 @@
 package com.jike.certification.service;
 
+import com.jike.certification.util.MyAssert;
+import com.jike.certification.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -27,5 +29,10 @@ public class MailService {
         message.setText(content);
 
         mailSender.send(message);
+    }
+
+    public void checkMail(String mail){
+        MyAssert.notNull(mail, "邮件不能为空");
+        MyAssert.isTrue(StringUtil.checkEmail(mail), "邮件格式有误");
     }
 }

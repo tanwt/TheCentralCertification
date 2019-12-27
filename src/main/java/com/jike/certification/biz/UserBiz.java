@@ -18,4 +18,8 @@ public class UserBiz {
     public Long save(User user) {
         return userDao.save(user);
     }
+
+    public User queryByMail(String mail){
+        return userDao.queryByMail(mail);
+    }
 }
