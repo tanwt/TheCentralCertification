@@ -33,7 +33,7 @@ public class VerifyCodeService {
      * @param mail
      * @return
      */
-    public Long sendVerifyCodeByMail(@NotNull String mail) {
+    public Long sendVerifyCodeByMail(String mail) {
         mailService.checkMail(mail);
         String code = genVerifyCode();
         mailService.sendSimpleMail(mail, "验证码", code);
