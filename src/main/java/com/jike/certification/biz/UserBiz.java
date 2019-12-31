@@ -2,6 +2,7 @@ package com.jike.certification.biz;
 
 import com.jike.certification.dao.UserDao;
 import com.jike.certification.model.user.User;
+import com.jike.certification.model.user.UserLoginReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

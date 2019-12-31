@@ -1,7 +1,10 @@
 package com.jike.certification.controller;
 
 import com.jike.certification.model.Response;
+import com.jike.certification.model.user.UserLoginReq;
 import com.jike.certification.model.user.UserRegisterReq;
+import com.jike.certification.model.user.UserToken;
+import com.jike.certification.model.user.UserVO;
 import com.jike.certification.service.UserService;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -30,5 +33,11 @@ public class UserController {
     @ApiOperation(value = "用户注册")
     public Response<Long> register(@Valid @RequestBody UserRegisterReq userRegisterReq){
         return ResponseUtil.makeSuccess(userService.userRegister(userRegisterReq));
+    }
+
+    @PostMapping("loginByMail")
+    @ApiOperation(value = "用户通过邮箱登陆")
+    public Response<UserToken> loginByMail(@Valid @RequestBody UserLoginReq userRegisterReq){
+        return ResponseUtil.makeSuccess(userService.userLoginByMail(userRegisterReq));
     }
 }

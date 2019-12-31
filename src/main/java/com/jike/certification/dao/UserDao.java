@@ -1,6 +1,7 @@
 package com.jike.certification.dao;
 
 import com.jike.certification.model.user.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author wentong

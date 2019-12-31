@@ -32,7 +32,7 @@ public class MailService {
         mailSender.send(message);
     }
 
-    public void checkMail(String mail){
+    public static void checkMail(String mail){
         MyAssert.notNull(mail, "邮件不能为空");
         MyAssert.isTrue(StringUtil.checkEmail(mail), "邮件格式有误");
     }

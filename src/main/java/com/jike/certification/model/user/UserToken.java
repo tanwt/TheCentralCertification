@@ -34,11 +34,5 @@ public class UserToken implements Serializable {
     @ApiModelProperty(value = "用户ID")
     private Long userId;
 
-    /**
-     * token过期时刷新token使用
-     */
-    private String refreshToken;
-
     private LocalDateTime expireTime;
-    private LocalDateTime refreshExpireTime;
 }

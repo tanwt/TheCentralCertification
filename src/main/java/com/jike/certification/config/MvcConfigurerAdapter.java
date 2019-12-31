@@ -1,8 +1,12 @@
 package com.jike.certification.config;
 
+import com.jike.certification.interceptor.CommentInterceptor;
+import com.jike.certification.interceptor.TokenValidateInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
@@ -14,6 +18,28 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 @Configuration
 public class MvcConfigurerAdapter implements WebMvcConfigurer {
+
+    @Bean
+    public CommentInterceptor commentInterceptor() {
+        return new CommentInterceptor();
+    }
+    @Bean
+    public TokenValidateInterceptor tokenValidateInterceptor() {
+        return new TokenValidateInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+
+//        公共拦截
+        registry.addInterceptor(commentInterceptor())
+            .addPathPatterns("/api/**");
+
+//        登录验证
+        registry.addInterceptor(tokenValidateInterceptor())
+            .addPathPatterns("/api/pc/**")
+            .excludePathPatterns("/api/pc/user/**");
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

@@ -4,8 +4,7 @@ import com.jike.certification.biz.UserBiz;
 import com.jike.certification.commentEnum.VerifyCodeEnum;
 import com.jike.certification.exception.ApiRuntimeException;
 import com.jike.certification.exception.ErrorCode;
-import com.jike.certification.model.user.User;
-import com.jike.certification.model.user.UserRegisterReq;
+import com.jike.certification.model.user.*;
 import com.jike.certification.model.verify.VerifyCode;
 import com.jike.certification.util.MyAssert;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +27,8 @@ public class UserService {
     private VerifyCodeService verifyCodeService;
     @Autowired
     private MailService mailService;
+    @Autowired
+    private UserTokenService userTokenService;
 
     public Long addUser(@Valid User user) {
         userBiz.save(user);
@@ -43,7 +44,7 @@ public class UserService {
      * @return
      */
     public Long userRegister(UserRegisterReq userRegisterReq) {
-        mailService.checkMail(userRegisterReq.getMail());
+        MailService.checkMail(userRegisterReq.getMail());
         VerifyCode verifyCode = verifyCodeService.queryLastValidCode(userRegisterReq.getMail());
         MyAssert.notNull(verifyCode, "验证失效或邮箱输入错误，请检查邮箱或重新获取验证码");
         // 判断验证码是否对等
@@ -66,5 +67,24 @@ public class UserService {
         } else {
             throw new ApiRuntimeException(ErrorCode.SYSTEM_VERIFY_CODE_ERROR);
         }
+    }
+
+    /**
+     * 用户通过邮箱登陆
+     *
+     * @param userLoginReq
+     * @return
+     */
+    public UserToken userLoginByMail(UserLoginReq userLoginReq) {
+        MailService.checkMail(userLoginReq.getMail());
+        User user = userBiz.queryByMail(userLoginReq.getMail());
+        MyAssert.notNull(user, "该邮箱未注册");
+        MyAssert.isTrue(user.getPassword().equals(userLoginReq.getPassword()), "密码错误");
+        UserToken userToken = UserToken.builder()
+                                  .thirdId(userLoginReq.getThirdId())
+                                  .userId(user.getId())
+                                  .build();
+        userTokenService.setOrFlushToken(userToken);
+        return userToken;
     }
 }

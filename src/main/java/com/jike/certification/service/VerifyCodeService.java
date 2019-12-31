@@ -34,7 +34,7 @@ public class VerifyCodeService {
      * @return
      */
     public Long sendVerifyCodeByMail(String mail) {
-        mailService.checkMail(mail);
+        MailService.checkMail(mail);
         String code = genVerifyCode();
         mailService.sendSimpleMail(mail, "验证码", code);
         VerifyCode lastValidCode = verifyCodeBiz.queryLastValidCode(mail);

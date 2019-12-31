@@ -3,13 +3,25 @@ spring:
   profiles:
     active: ${spring.profiles.active}
 
-
   #  数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://120.79.94.90:3306/central_certification?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
+
+  # redis 配置
+  redis:
+    database: 0
+    host: 120.79.94.90
+    port: 6379
+    password: redis123
+    jedis:
+      pool:
+#        max-active: 100
+#        max-idle: 10
+        max-wait: 100000
+    timeout: 5000
   # 邮件配置
   mail:
     host: smtp.qq.com
@@ -26,6 +38,7 @@ spring:
           starttls:
             enable: true
             required: true
+          # 阿里云禁用25 端口，这里用465，465 是ssl 端口，所以用ssl 连接
           socketFactory:
             port: 465
             class: javax.net.ssl.SSLSocketFactory
