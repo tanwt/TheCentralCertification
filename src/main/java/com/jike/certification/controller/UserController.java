@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping("loginByMail")
     @ApiOperation(value = "用户通过邮箱登陆")
-    public Response<UserToken> loginByMail(@Valid @RequestBody UserLoginReq userRegisterReq){
-        return ResponseUtil.makeSuccess(userService.userLoginByMail(userRegisterReq));
+    public Response<UserToken> loginByMail(@Valid @RequestBody UserLoginReq userLoginReq){
+        return ResponseUtil.makeSuccess(userService.userLoginByMail(userLoginReq));
     }
 }

@@ -27,6 +27,4 @@ public class UserLoginReq {
     @ApiModelProperty(value = "平台id ")
     @NotNull
     private Integer thirdId;
-//    @ApiModelProperty(value = "验证码")
-//    private String verifyCode;
 }

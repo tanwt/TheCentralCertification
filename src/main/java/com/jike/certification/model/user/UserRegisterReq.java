@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@ApiModel(value = "用户登陆请求类")
+@ApiModel(value = "用户注册请求类")
 public class UserRegisterReq {
     @ApiModelProperty(value = "用户名 ")
     @NotNull(message = "用户名不能为空")
