@@ -30,6 +30,8 @@ build/
 ### VS Code ###
 .vscode/
 
-mvnw*
-HELP.md
 .mvn
+
+HELP.md
+mvnw
+mvnw.cmd

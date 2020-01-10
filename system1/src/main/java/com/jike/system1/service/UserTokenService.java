@@ -1,23 +1,18 @@
-package com.jike.certification.service;
+package com.jike.system1.service;
 
-import com.alibaba.fastjson.JSONObject;
-import com.jike.certification.biz.UserTokenBiz;
-import com.jike.certification.config.redis.RedisHandler;
-import com.jike.certification.exception.ApiParameterException;
-import com.jike.certification.exception.ErrorCode;
-import com.jike.certification.model.user.UserToken;
-import com.jike.certification.util.*;
+import com.jike.system1.biz.UserTokenBiz;
+import com.jike.system1.config.redis.RedisHandler;
+import com.jike.system1.exception.ApiParameterException;
+import com.jike.system1.exception.ErrorCode;
+import com.jike.system1.model.UserToken;
+import com.jike.system1.util.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 
 /**
@@ -68,10 +63,7 @@ public class UserTokenService {
         String key = tokenKey(token);
         UserToken userToken = redisHandler.get(key, UserToken.class);
         if (userToken == null) {
-            userToken = userTokenBiz.queryByToken(token);
-            if (userToken == null || userToken.getExpireTime().isBefore(LocalDateTime.now())){
-                ErrorUtil.notLoginError();
-            }
+            ErrorUtil.notLoginError();
         }
         validateUserId(userToken);
         if (userToken.getExpireTime().isBefore(LocalDateTime.now())) {
@@ -86,10 +78,7 @@ public class UserTokenService {
         } else {
             userTokenBiz.update(userToken);
         }
-        boolean expire = redisHandler.expire(tokenKey(userToken.getToken()), userToken);
-        if (!expire) {
-            log.warn("存入缓存失败:{}", userToken);
-        }
+        redisHandler.expire(tokenKey(userToken.getToken()), userToken);
         ContextUtil.setUserToken(userToken);
         ContextUtil.setFromThirdId(userToken.getThirdId());
         // 在返回里面增加cookie
