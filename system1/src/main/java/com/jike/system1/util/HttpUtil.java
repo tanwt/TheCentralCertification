@@ -61,6 +61,12 @@ public class HttpUtil {
         return response.getBody();
     }
 
+    public static String sendGetRequest(String url) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        HttpHeaders headers = new HttpHeaders();
+        return sendGetRequest(url, params, headers);
+    }
+
     public static void main(String[] args) throws IOException {
         String url = "http://localhost:8080/api/pc/user/checkUserToken?token=qt6-XwMxDTUBUG4zaCr-wopgYGvHtbc4e_66RRhGwBs";
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();

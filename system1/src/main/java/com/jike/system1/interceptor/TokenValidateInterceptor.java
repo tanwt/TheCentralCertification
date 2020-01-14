@@ -1,5 +1,6 @@
 package com.jike.system1.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jike.system1.annotation.NoLoginRequired;
 import com.jike.system1.exception.ApiParameterException;
@@ -7,10 +8,13 @@ import com.jike.system1.exception.ErrorCode;
 import com.jike.system1.model.UserToken;
 import com.jike.system1.service.UserTokenService;
 import com.jike.system1.util.ContextUtil;
+import com.jike.system1.util.HttpUtil;
 import com.jike.system1.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -33,10 +37,11 @@ public class TokenValidateInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private UserTokenService userTokenService;
 
+//    private final static String URL = "http://120.79.94.90:8080/api/pc/user/checkUserToken?token=";
+    private final static String URL = "http://localhost:8080/api/pc/user/checkUserToken?token=";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        ContextUtil.setRequest(request);
-        ContextUtil.setResponse(response);
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
@@ -60,28 +65,16 @@ public class TokenValidateInterceptor extends HandlerInterceptorAdapter {
             }
         }
         if (StringUtils.isNotEmpty(token)) {
-            // 不管怎样，都试图解析出userToken，如果不需要登录的话，解析失败也没关系
-            try {
-                UserToken userToken = userTokenService.getUserToken(token);
-                ContextUtil.setUserId(userToken.getUserId());
+            // 到主系统判断token 是否有效
+            String sendUrl = URL + token;
+            String result = HttpUtil.sendGetRequest(sendUrl);
+            JSONObject jsonObject = JSONObject.parseObject(result);
+            boolean success = (Boolean)jsonObject.get("success");
+            if (success){
+                UserToken userToken = JSONObject.parseObject(jsonObject.get("data").toString(), UserToken.class);
                 ContextUtil.setUserToken(userToken);
-                ContextUtil.setFromThirdId(userToken.getThirdId());
-                // 正常解析出userToken，返回正确
-                // 刷新token 缓存时间
-                userTokenService.setOrFlushToken(userToken);
                 return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                log.info("获取token失败, error={}", e.getMessage());
-                // 解析userToken出错，但如果不需要登录的话，也不用管它
-                if (noLoginRequired) {
-                    return true;
-                }
-                // 需要登录，且token过期，返回token过期
-                if (e instanceof ApiParameterException && ((ApiParameterException) e).getErrorCode() == ErrorCode.USER_ACCOUNT_TOKEN_EXPIRED) {
-                    return checkFail(response, ErrorCode.USER_ACCOUNT_TOKEN_EXPIRED);
-                }
-                // 需要登录，未知错误，返回登录失败
+            } else {
                 return checkFail(response, ErrorCode.USER_ACCOUNT_NO_LOGIN);
             }
         } else {
