@@ -22,5 +22,5 @@ public class ThirdVo {
     @ApiModelProperty(value = "第三方平台名")
     private String name;
     @ApiModelProperty(value = "第三方平台创立时间")
-    private LocalDateTime creatTime;
+    private LocalDateTime createTime;
 }

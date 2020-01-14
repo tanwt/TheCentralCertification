@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author wentong
  * @date 2020-01-13
@@ -19,5 +21,6 @@ public class ThirdBaseReq {
     @ApiModelProperty(value = "第三方平台id")
     private Long id;
     @ApiModelProperty(value = "第三方平台名")
+    @NotNull
     private String name;
 }

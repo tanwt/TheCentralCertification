@@ -49,7 +49,7 @@
         SELECT <include refid="baseSql"/>
         FROM third
         WHERE deleted = 0
-        AND name = "%${thirdName}%"
+        AND name LIKE "%${thirdName}%"
     </select>
 
     <select id="queryByName" resultType="com.jike.certification.model.third.Third">

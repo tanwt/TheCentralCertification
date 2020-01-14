@@ -1,15 +1,17 @@
 package com.jike.certification.service;
 
 import com.jike.certification.biz.ThirdBiz;
-import com.jike.certification.model.third.Third;
-import com.jike.certification.model.third.ThirdListReq;
-import com.jike.certification.model.third.ThirdListVo;
+import com.jike.certification.exception.ApiRuntimeException;
+import com.jike.certification.exception.ErrorCode;
+import com.jike.certification.model.third.*;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;
 import com.jike.certification.util.PageQueryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * @author wentong
@@ -37,9 +39,17 @@ public class ThirdService {
             return oldThird;
         } else {
             Third newThird = MyBeanUtils.myCopyProperties(third, new Third());
+            third.setCreateTime(LocalDateTime.now());
             thirdBiz.save(newThird);
             return newThird;
         }
+    }
+
+    public ThirdVo addThird(ThirdBaseReq thirdBaseReq) {
+        MyAssert.notNull(thirdBaseReq, "三方平台新增数据为空");
+        MyAssert.notNull(thirdBaseReq.getName(), "三方平台名为空");
+        Third third = addThird(MyBeanUtils.myCopyProperties(thirdBaseReq, new Third()));
+        return MyBeanUtils.myCopyProperties(third, new ThirdVo());
     }
 
     /**
@@ -51,6 +61,11 @@ public class ThirdService {
     public int updateThird(Third third) {
         MyAssert.notNull(third, "三方平台更新数据为空");
         MyAssert.notNull(third.getId(), "三方平台id 为空");
+        String thirdName = third.getName();
+        if (thirdName != null) {
+            Third oldThird = thirdBiz.queryByName(thirdName);
+            MyAssert.isNull(oldThird, "该三方系统已存在");
+        }
         return thirdBiz.update(third);
     }
 

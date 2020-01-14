@@ -1,6 +1,7 @@
 package com.jike.certification.util;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jike.certification.model.Pagination;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
