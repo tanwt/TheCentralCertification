@@ -2,7 +2,7 @@ package com.jike.certification.util;
 
 import com.jike.certification.constants.ContextFieldCons;
 import com.jike.certification.exception.ErrorCode;
-import com.jike.certification.model.user.UserToken;
+import com.jike.certification.model.UserToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 

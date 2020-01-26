@@ -1,8 +1,11 @@
 package com.jike.certification.model.user;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +17,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class User {
+@TableName("user")
+public class User extends Model<User> {
     private Long id;
     @NotNull
     private String userName;
@@ -25,4 +29,9 @@ public class User {
     private Integer deleted;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+
+    @Override
+    protected Serializable pkVal() {
+        return id;
+    }
 }

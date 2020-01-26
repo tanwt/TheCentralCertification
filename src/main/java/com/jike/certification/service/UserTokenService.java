@@ -1,23 +1,18 @@
 package com.jike.certification.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jike.certification.biz.UserTokenBiz;
 import com.jike.certification.config.redis.RedisHandler;
 import com.jike.certification.exception.ApiParameterException;
 import com.jike.certification.exception.ErrorCode;
-import com.jike.certification.model.user.UserToken;
+import com.jike.certification.model.UserToken;
 import com.jike.certification.util.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 
 /**

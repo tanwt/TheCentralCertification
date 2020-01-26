@@ -20,6 +20,13 @@ public class UserBiz {
         return userDao.save(user);
     }
 
+    public User queryByName(String userName){
+        User user = User.builder()
+                        .userName(userName)
+                        .build();
+        return userDao.selectOne(user);
+    }
+
     public User queryByMail(String mail){
         return userDao.queryByMail(mail);
     }

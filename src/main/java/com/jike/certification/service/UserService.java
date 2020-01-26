@@ -4,13 +4,13 @@ import com.jike.certification.biz.UserBiz;
 import com.jike.certification.commentEnum.VerifyCodeEnum;
 import com.jike.certification.exception.ApiRuntimeException;
 import com.jike.certification.exception.ErrorCode;
+import com.jike.certification.model.UserToken;
 import com.jike.certification.model.user.*;
 import com.jike.certification.model.verify.VerifyCode;
 import com.jike.certification.util.MyAssert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 

@@ -12,7 +12,7 @@
         update_time
     </sql>
 
-    <insert id="save" parameterType="com.jike.certification.model.user.UserToken" useGeneratedKeys="true"
+    <insert id="save" parameterType="com.jike.certification.model.UserToken" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO user_token
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -51,7 +51,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.jike.certification.model.user.UserToken">
+    <update id="update" parameterType="com.jike.certification.model.UserToken">
         update user_token
         <set>
             <if test="token != null">
@@ -81,7 +81,7 @@
         and deleted = 0
     </update>
 
-    <select id="queryByToken" resultType="com.jike.certification.model.user.UserToken">
+    <select id="queryByToken" resultType="com.jike.certification.model.UserToken">
         select
         <include refid="selectField"/>
         from user_token
@@ -89,7 +89,7 @@
         and deleted=0
     </select>
 
-    <select id="queryByUserId" resultType="com.jike.certification.model.user.UserToken">
+    <select id="queryByUserId" resultType="com.jike.certification.model.UserToken">
         select
         <include refid="selectField"/>
         from user_token
@@ -97,7 +97,7 @@
         and deleted=0
     </select>
 
-    <select id="queryByUserIdList" resultType="com.jike.certification.model.user.UserToken">
+    <select id="queryByUserIdList" resultType="com.jike.certification.model.UserToken">
         select
         <include refid="selectField"/>
         from user_token

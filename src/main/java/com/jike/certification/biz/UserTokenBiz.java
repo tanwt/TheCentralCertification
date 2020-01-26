@@ -1,7 +1,7 @@
 package com.jike.certification.biz;
 
 import com.jike.certification.dao.UserTokenDao;
-import com.jike.certification.model.user.UserToken;
+import com.jike.certification.model.UserToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

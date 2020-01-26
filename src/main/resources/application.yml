@@ -44,34 +44,22 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
     port: 465
 
-mybatis:
-  mapper-locations: 'classpath:mapper/**/*.xml'
-  mapper-scan: 'com.jike'
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
   configuration:
     map-underscore-to-camel-case: true
-    default-fetch-size: 100
-    default-statement-timeout: 30
-    cache-enabled: true
-    lazy-loading-enabled: true
-    multiple-result-sets-enabled: true
-    use-column-label: true
-    use-generated-keys: false
-    auto-mapping-behavior: partial
-    safe-row-bounds-enabled: false
-    local-cache-scope: session
-    jdbc-type-for-null: other
-    lazy-load-trigger-methods: equals,clone,hashCode,toString
-    vfs-impl: org.mybatis.spring.boot.autoconfigure.SpringBootVFS
-  plugins:
-    pagehelper:
-      dialect: mysql
-      offsetAsPageNum: true
-      rowBoundsWithCount: true
-      pageSizeZero: true
-      reasonable: false
-      parabs: 'pageNum=pageHelperStart;pageSize=pageHelperRows;'
-      supportMethodsArguments: false
-      returnPageInfo: none
+    cache-enabled: false
+  mapper-locations: classpath:/mapper/**.xml
 
 # swagger 打开配置
 swagger:

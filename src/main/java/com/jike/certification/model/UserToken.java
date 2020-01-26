@@ -1,5 +1,7 @@
-package com.jike.certification.model.user;
+package com.jike.certification.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -19,8 +21,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @ApiModel(value = "三方用户信息")
-public class UserToken implements Serializable {
-    private static final long serialVersionUID = 3107060572331593980L;
+@TableName("user_token")
+public class UserToken extends Model<UserToken> {
 
     @ApiModelProperty(value = "token 数据库Id")
     private Long id;
@@ -35,4 +37,9 @@ public class UserToken implements Serializable {
     private Long userId;
 
     private LocalDateTime expireTime;
+
+    @Override
+    protected Serializable pkVal() {
+        return id;
+    }
 }

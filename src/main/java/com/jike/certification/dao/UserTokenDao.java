@@ -1,6 +1,7 @@
 package com.jike.certification.dao;
 
-import com.jike.certification.model.user.UserToken;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.jike.certification.model.UserToken;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * @author wentong
  */
-public interface UserTokenDao {
+public interface UserTokenDao extends BaseMapper<UserToken> {
 
     int save(UserToken userToken);
 
