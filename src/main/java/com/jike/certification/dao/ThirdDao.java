@@ -1,8 +1,9 @@
 package com.jike.certification.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jike.certification.model.third.Third;
-import com.jike.certification.model.third.ThirdListReq;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,16 +14,5 @@ import java.util.List;
  */
 public interface ThirdDao extends BaseMapper<Third> {
 
-    public Long save(Third third);
-
-    public int update(Third third);
-
-    public Third queryByName(@Param("thirdName") String thirdName);
-
-    /**
-     * 通过平台名模糊查询
-     * @param thirdName
-     * @return
-     */
-    public List<Third> queryByLikeName(@Param("thirdName") String thirdName);
+    public IPage<Third> thirdList(Page<?> page, String name);
 }

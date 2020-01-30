@@ -1,14 +1,14 @@
 package com.jike.certification.biz;
 
-import com.github.pagehelper.PageHelper;
-import com.jike.certification.commentEnum.DeleteStatus;
-import com.jike.certification.constants.CommonConstants;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jike.certification.dao.ThirdDao;
+import com.jike.certification.factory.WrapperFactory;
+import com.jike.certification.model.Pagination;
 import com.jike.certification.model.third.Third;
 import com.jike.certification.model.third.ThirdListReq;
-import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.PageQueryResponse;
-import lombok.extern.slf4j.Slf4j;
+import com.jike.certification.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,38 +17,34 @@ import org.springframework.stereotype.Service;
  * @date 2020-01-13
  */
 @Service
-@Slf4j
 public class ThirdBiz {
 
     @Autowired
     private ThirdDao thirdDao;
 
     public Long save(Third third) {
-        return thirdDao.save(third);
+        return Long.valueOf(thirdDao.insert(third));
     }
 
     public int update(Third third) {
-        return thirdDao.update(third);
+        return thirdDao.updateById(third);
     }
 
     public int deleteThirdById(Long thirdId) {
-        // 删除需要在biz 层做检测
-        MyAssert.notNull(thirdId, "删除的平台id 为空");
-        Third third = Third.builder()
-                          .id(thirdId)
-                          .deleted(DeleteStatus.DELETED.getValue())
-                          .build();
-        return thirdDao.update(third);
+        return thirdDao.deleteById(thirdId);
     }
 
     public Third queryByName(String thirdName) {
-        return thirdDao.queryByName(thirdName);
+        QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("name", thirdName);
+        return thirdDao.selectOne(queryWrapper);
     }
 
-    public PageQueryResponse<Third> thirdList(ThirdListReq thirdListReq) {
-        return PageQueryResponse.buildFromPageHelperSupplier(thirdListReq.getPagination(), CommonConstants.MAX_PAGE_SIZE, pagination -> {
-            PageHelper.startPage(thirdListReq.getPagination().getPageNum(), thirdListReq.getPagination().getPageSize());
-            return thirdDao.queryByLikeName(thirdListReq.getName());
-        });
+    public PageQueryResponse<Third> thirdList(ThirdListReq thirdListReq){
+        QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.likeLeft("name", thirdListReq.getName());
+        Pagination pagination = thirdListReq.getPagination();
+        Page<Third> page = new Page<>(pagination.getPageNum(), pagination.getPageNum());
+        return PageQueryResponse.buildPageQueryResponse(thirdDao.selectPage(page, queryWrapper));
     }
 }

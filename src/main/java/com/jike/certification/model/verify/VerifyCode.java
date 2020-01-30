@@ -1,10 +1,11 @@
 package com.jike.certification.model.verify;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @TableName("verify_code")
 public class VerifyCode extends Model<VerifyCode> {
+    @TableId(type = IdType.AUTO)
     private Long id;
     private String mobile;
     private String mail;
@@ -31,9 +33,4 @@ public class VerifyCode extends Model<VerifyCode> {
     private LocalDateTime validateTime;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-
-    @Override
-    protected Serializable pkVal() {
-        return id;
-    }
 }

@@ -1,7 +1,10 @@
 package com.jike.certification.model;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -25,6 +28,7 @@ import java.time.LocalDateTime;
 public class UserToken extends Model<UserToken> {
 
     @ApiModelProperty(value = "token 数据库Id")
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty(value = "登录来源的thirdId")
@@ -37,9 +41,4 @@ public class UserToken extends Model<UserToken> {
     private Long userId;
 
     private LocalDateTime expireTime;
-
-    @Override
-    protected Serializable pkVal() {
-        return id;
-    }
 }

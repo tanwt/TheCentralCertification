@@ -1,9 +1,9 @@
 package com.jike.certification.controller;
 
 import com.jike.certification.model.Response;
+import com.jike.certification.model.UserToken;
 import com.jike.certification.model.user.UserLoginReq;
 import com.jike.certification.model.user.UserRegisterReq;
-import com.jike.certification.model.UserToken;
 import com.jike.certification.service.UserService;
 import com.jike.certification.service.UserTokenService;
 import com.jike.certification.util.ResponseUtil;

@@ -42,8 +42,4 @@ public class ThirdController {
     public Response<PageQueryResponse<ThirdListVo>> thirdList(@Valid @RequestBody ThirdListReq thirdListReq) {
         return ResponseUtil.makeSuccess(thirdService.thirdList(thirdListReq));
     }
-
-
-
-
 }

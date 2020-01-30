@@ -1,8 +1,6 @@
 package com.jike.certification.service;
 
 import com.jike.certification.biz.ThirdBiz;
-import com.jike.certification.exception.ApiRuntimeException;
-import com.jike.certification.exception.ErrorCode;
 import com.jike.certification.model.third.*;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;

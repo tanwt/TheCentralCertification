@@ -1,11 +1,11 @@
 package com.jike.certification.model.third;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
-import io.swagger.annotations.ApiModel;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -18,16 +18,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @TableName("third")
-@ApiModel(value = "第三饭平台基础类")
 public class Third extends Model<Third> {
+    @TableId(type = IdType.AUTO)
     private Long id;
     private String name;
     private Integer deleted;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
-    @Override
-    protected Serializable pkVal() {
-        return id;
-    }
 }

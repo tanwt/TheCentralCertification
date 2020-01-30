@@ -1,6 +1,6 @@
 package com.jike.certification.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jike.certification.model.verify.VerifyCode;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface VerifyCodeDao extends BaseMapper<VerifyCode> {
 
-    Long save(VerifyCode verifyCode);
-
-    int update(VerifyCode verifyCode);
-
+//    Long save(VerifyCode verifyCode);
+//
+//    int update(VerifyCode verifyCode);
+//
     VerifyCode queryLastValidCode(@Param("mail") String mail);
 }

@@ -1,6 +1,6 @@
 package com.jike.certification.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jike.certification.model.user.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +10,4 @@ import org.apache.ibatis.annotations.Param;
  */
 
 public interface UserDao extends BaseMapper<User> {
-    Long save(User user);
-
-    User queryByMail(String mail);
 }

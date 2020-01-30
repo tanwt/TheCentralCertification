@@ -1,6 +1,6 @@
 package com.jike.certification.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jike.certification.model.UserToken;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,10 +11,10 @@ import java.util.List;
  */
 public interface UserTokenDao extends BaseMapper<UserToken> {
 
-    int save(UserToken userToken);
-
-    int update(UserToken userToken);
-
+//    int save(UserToken userToken);
+//
+//    int update(UserToken userToken);
+//
     int deleteByUserIdList(@Param("userIdList") List<Long> userIdList);
 
     int deleteByToken(@Param("token") String token);
