@@ -6,9 +6,8 @@ import com.jike.certification.dao.ThirdDao;
 import com.jike.certification.factory.WrapperFactory;
 import com.jike.certification.model.Pagination;
 import com.jike.certification.model.third.Third;
-import com.jike.certification.model.third.ThirdListReq;
+import com.jike.certification.model.third.ThirdPageReq;
 import com.jike.certification.util.PageQueryResponse;
-import com.jike.certification.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,11 +39,11 @@ public class ThirdBiz {
         return thirdDao.selectOne(queryWrapper);
     }
 
-    public PageQueryResponse<Third> thirdList(ThirdListReq thirdListReq){
+    public PageQueryResponse<Third> thirdList(ThirdPageReq thirdPageReq){
         QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
-        queryWrapper.likeLeft("name", thirdListReq.getName());
-        Pagination pagination = thirdListReq.getPagination();
-        Page<Third> page = new Page<>(pagination.getPageNum(), pagination.getPageNum());
+        queryWrapper.likeLeft("name", thirdPageReq.getName());
+        Pagination pagination = thirdPageReq.getPagination();
+        Page<Third> page = new Page<>(pagination.getPageNum(), pagination.getPageSize());
         return PageQueryResponse.buildPageQueryResponse(thirdDao.selectPage(page, queryWrapper));
     }
 }

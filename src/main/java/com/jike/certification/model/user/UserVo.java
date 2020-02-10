@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ApiModel("用户标准返回")
-public class UserVO {
+public class UserVo {
     @ApiModelProperty("用户自增id")
     private Long id;
     @ApiModelProperty("用户名")

@@ -6,13 +6,17 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.dao.UserRoleRelevanceDao;
 import com.jike.certification.factory.WrapperFactory;
+import com.jike.certification.model.Pagination;
+import com.jike.certification.model.third.Third;
 import com.jike.certification.model.userRoleRelevance.UserRoleRelevance;
+import com.jike.certification.model.userRoleRelevance.UserRoleRelevancePageReq;
 import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.PageQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +30,9 @@ public class UserRoleRelevanceBiz extends ServiceImpl<UserRoleRelevanceDao, User
     private UserRoleRelevanceDao userRoleRelevanceDao;
 
     public List<UserRoleRelevance> queryByThirdIdAndRoleIdAndUserIdList(Long thirdId, Long roleId, List<Long> userIdList){
+        if (CollectionUtils.isEmpty(userIdList)) {
+            return Collections.EMPTY_LIST;
+        }
         QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
         queryWrapper.eq("third_id", thirdId);
         queryWrapper.eq("role_id", roleId);
@@ -51,4 +58,12 @@ public class UserRoleRelevanceBiz extends ServiceImpl<UserRoleRelevanceDao, User
         queryWrapper.eq("role_id", roleId);
         return userRoleRelevanceDao.selectList(queryWrapper);
     }
+
+    public PageQueryResponse<UserRoleRelevance> userRoleRelevancePage(UserRoleRelevancePageReq userRoleRelevancePageReq){
+        QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
+        Pagination pagination = userRoleRelevancePageReq.getPagination();
+        Page<UserRoleRelevance> page = new Page<>(pagination.getPageNum(), pagination.getPageSize());
+        return PageQueryResponse.buildPageQueryResponse(userRoleRelevanceDao.selectPage(page, queryWrapper));
+    }
+
 }

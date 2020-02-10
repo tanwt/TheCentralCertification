@@ -39,7 +39,7 @@ public class ThirdController {
 
     @GetMapping("thirdList")
     @ApiOperation(value = "第三方系统分页获取")
-    public Response<PageQueryResponse<ThirdListVo>> thirdList(@Valid @RequestBody ThirdListReq thirdListReq) {
-        return ResponseUtil.makeSuccess(thirdService.thirdList(thirdListReq));
+    public Response<PageQueryResponse<ThirdPageVo>> thirdList(@Valid @RequestBody ThirdPageReq thirdPageReq) {
+        return ResponseUtil.makeSuccess(thirdService.thirdList(thirdPageReq));
     }
 }

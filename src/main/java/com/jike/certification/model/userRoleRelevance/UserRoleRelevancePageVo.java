@@ -1,11 +1,9 @@
 package com.jike.certification.model.userRoleRelevance;
 
+import com.jike.certification.model.user.UserVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * @author wentong
@@ -16,15 +14,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@ApiModel(value = "用户角色关联分页查询类")
-public class UserRoleRelevanceListReq {
-    @NotNull
+@ApiModel(value = "用户角色关联分页返回类")
+public class UserRoleRelevancePageVo {
+    @ApiModelProperty(value = "关联id")
+    private Long id;
     @ApiModelProperty(value = "系统Id")
     private Long thirdId;
-    @NotNull
     @ApiModelProperty(value = "角色Id")
     private Long roleId;
-    @NotNull
-    @ApiModelProperty(value = "用户Id 集合")
-    private List<Long> userIdList;
+    @ApiModelProperty(value = "用户信息")
+    private UserVo userVo;
 }

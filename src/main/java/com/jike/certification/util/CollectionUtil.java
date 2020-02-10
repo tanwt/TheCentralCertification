@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -143,6 +144,10 @@ public class CollectionUtil {
         }
     }
 
+    public static <T> List<T> filter(List<T> t, Predicate<? super T> predicate) {
+        return t.stream().filter(predicate).collect(Collectors.toList());
+    }
+
     public static <T> Optional<T> getLastOptinal(List<? extends T> list) {
         if (CollectionUtils.isEmpty(list)) {
             return Optional.empty();
@@ -158,4 +163,5 @@ public class CollectionUtil {
 
         return list.get(list.size() - 1);
     }
+
 }

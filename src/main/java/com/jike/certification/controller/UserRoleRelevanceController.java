@@ -1,12 +1,11 @@
 package com.jike.certification.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jike.certification.factory.WrapperFactory;
 import com.jike.certification.model.Response;
-import com.jike.certification.model.userRoleRelevance.UserRoleRelevance;
 import com.jike.certification.model.userRoleRelevance.UserRoleRelevanceBatchInsert;
+import com.jike.certification.model.userRoleRelevance.UserRoleRelevancePageReq;
+import com.jike.certification.model.userRoleRelevance.UserRoleRelevancePageVo;
 import com.jike.certification.service.UserRoleRelevanceService;
+import com.jike.certification.util.PageQueryResponse;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,5 +42,11 @@ public class UserRoleRelevanceController {
     @ApiOperation(value = "批量删除关联")
     public Response<Boolean> deletedBatch(@RequestBody List<Long> idList) {
         return ResponseUtil.makeSuccess(userRoleRelevanceService.deletedBatch(idList));
+    }
+
+    @PostMapping("userRoleRelevancePage")
+    @ApiOperation(value = "用户角色关联分页查询")
+    public Response<PageQueryResponse<UserRoleRelevancePageVo>> userRoleRelevancePage(@Validated @RequestBody UserRoleRelevancePageReq pageReq) {
+        return ResponseUtil.makeSuccess(userRoleRelevanceService.userRoleRelevancePage(pageReq));
     }
 }

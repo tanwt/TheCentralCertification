@@ -81,14 +81,14 @@ public class ThirdService {
     /**
      * 分页请求数据
      *
-     * @param thirdListReq
+     * @param thirdPageReq
      * @return
      */
-    public PageQueryResponse<ThirdListVo> thirdList(ThirdListReq thirdListReq) {
-        MyAssert.notNull(thirdListReq, "三方平台分页请求数据为空");
-        PageQueryResponse<Third> thirdPageQueryResponse = thirdBiz.thirdList(thirdListReq);
+    public PageQueryResponse<ThirdPageVo> thirdList(ThirdPageReq thirdPageReq) {
+        MyAssert.notNull(thirdPageReq, "三方平台分页请求数据为空");
+        PageQueryResponse<Third> thirdPageQueryResponse = thirdBiz.thirdList(thirdPageReq);
         return thirdPageQueryResponse.transform(third -> {
-            return MyBeanUtils.myCopyProperties(third, new ThirdListVo());
+            return MyBeanUtils.myCopyProperties(third, new ThirdPageVo());
         });
     }
 }

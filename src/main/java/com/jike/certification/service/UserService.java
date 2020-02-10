@@ -7,12 +7,18 @@ import com.jike.certification.exception.ErrorCode;
 import com.jike.certification.model.UserToken;
 import com.jike.certification.model.user.*;
 import com.jike.certification.model.verify.VerifyCode;
+import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
+import com.jike.certification.util.MyBeanUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author wentong
@@ -29,11 +35,6 @@ public class UserService {
     private MailService mailService;
     @Autowired
     private UserTokenService userTokenService;
-
-    public Long addUser(@Valid User user) {
-        userBiz.save(user);
-        return user.getId();
-    }
 
     /**
      * 用户注册
@@ -57,12 +58,11 @@ public class UserService {
                 verifyCode.setVerifyCode(userRegisterReq.getVerifyCode());
                 throw new ApiRuntimeException(ErrorCode.USER_ACCOUNT_MAIL_DUPLICATE);
             } else {
-                User user = new User();
-                BeanUtils.copyProperties(userRegisterReq, user);
+                User user = MyBeanUtils.myCopyProperties(userRegisterReq, new User());
                 verifyCode.setStatus(VerifyCodeEnum.VERIFY_SUCCESS.getStatus());
                 verifyCode.setVerifyCode(userRegisterReq.getVerifyCode());
                 verifyCodeService.update(verifyCode);
-                return userBiz.save(user);
+                return userBiz.insert(user);
             }
         } else {
             throw new ApiRuntimeException(ErrorCode.SYSTEM_VERIFY_CODE_ERROR);
@@ -87,4 +87,22 @@ public class UserService {
         userTokenService.setOrFlushToken(userToken);
         return userToken;
     }
+
+    /**
+     * 根据用户id 集合查询用户信息
+     * @param userIdList
+     * @return
+     */
+    public List<UserVo> queryByUserIdList(List<Long> userIdList) {
+        if (CollectionUtils.isEmpty(userIdList)) {
+            return Collections.EMPTY_LIST;
+        }
+        List<User> userList = userBiz.queryByUserIdList(userIdList);
+        List<UserVo> userVoList = CollectionUtil.transformList(userList, user -> {
+            UserVo userVo = MyBeanUtils.myCopyProperties(user, new UserVo());
+            return userVo;
+        });
+        return userVoList;
+    }
+
 }

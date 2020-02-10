@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * @author wentong
@@ -16,11 +16,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@ApiModel(value = "第三方平台分页请求基础类")
-public class ThirdListReq {
-    @ApiModelProperty(value = "第三方平台名字", notes = "模糊查询，选传")
+@ApiModel(value = "第三方平台分页返回基础类")
+public class ThirdPageVo {
+    @ApiModelProperty(value = "第三方平台id")
+    private Long id;
+    @ApiModelProperty(value = "第三方平台名字")
     private String name;
-    @ApiModelProperty(value = "分页数据", notes = "必传")
-    @NotNull
-    private Pagination pagination;
+    @ApiModelProperty(value = "第三方平台创建时间")
+    private LocalDateTime createTime;
 }

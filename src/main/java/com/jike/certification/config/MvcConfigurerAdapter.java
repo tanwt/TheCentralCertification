@@ -38,7 +38,8 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
 //        登录验证
         registry.addInterceptor(tokenValidateInterceptor())
             .addPathPatterns("/api/pc/**")
-            .excludePathPatterns("/api/pc/user/**");
+            .excludePathPatterns("/api/pc/user/**")
+            .excludePathPatterns("/api/pc/verifyCode/**");
     }
 
     @Override
