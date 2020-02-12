@@ -18,13 +18,13 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ApiModel(value = "用户登陆请求类")
 public class UserLoginReq {
-    @ApiModelProperty(value = "用户名登陆邮箱")
+    @ApiModelProperty(value = "用户名登陆邮箱，必传")
     @NotNull
     private String mail;
-    @ApiModelProperty(value = "用户密码 ")
+    @ApiModelProperty(value = "用户密码，必传")
     @NotNull
     private String password;
-    @ApiModelProperty(value = "平台id ")
+    @ApiModelProperty(value = "平台id，必传")
     @NotNull
     private Integer thirdId;
 }
