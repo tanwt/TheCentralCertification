@@ -2,12 +2,14 @@ package com.jike.certification.biz;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jike.certification.commentEnum.OrderEnum;
 import com.jike.certification.dao.ThirdDao;
 import com.jike.certification.factory.WrapperFactory;
 import com.jike.certification.model.Pagination;
 import com.jike.certification.model.third.Third;
 import com.jike.certification.model.third.ThirdPageReq;
 import com.jike.certification.util.PageQueryResponse;
+import com.jike.certification.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +42,18 @@ public class ThirdBiz {
     }
 
     public PageQueryResponse<Third> thirdList(ThirdPageReq thirdPageReq){
+        boolean isAsc;
+        String orderByUpdateTime = thirdPageReq.getOrderByUpdateTime();
+        if (StringUtil.checkNotEmpty(orderByUpdateTime) && orderByUpdateTime.equals(OrderEnum.ASC.getOrder())) {
+            isAsc = true;
+        } else {
+            isAsc = false;
+        }
         QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
-        queryWrapper.likeLeft("name", thirdPageReq.getName());
+        if (StringUtil.checkNotEmpty(thirdPageReq.getName())) {
+            queryWrapper.likeLeft("name", thirdPageReq.getName());
+        }
+        queryWrapper.orderBy(true, isAsc, "update_time");
         Pagination pagination = thirdPageReq.getPagination();
         Page<Third> page = new Page<>(pagination.getPageNum(), pagination.getPageSize());
         return PageQueryResponse.buildPageQueryResponse(thirdDao.selectPage(page, queryWrapper));

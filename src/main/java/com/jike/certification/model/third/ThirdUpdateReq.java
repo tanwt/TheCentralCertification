@@ -22,6 +22,8 @@ public class ThirdUpdateReq {
     private Long id;
     @ApiModelProperty(value = "第三方平台名，选传")
     private String name;
+    @ApiModelProperty(value = "第三方平台说明，选传")
+    private String thirdExplain;
     @ApiModelProperty(value = "是否删除（0 正常 1 删除），选传")
     private Integer deleted;
 }

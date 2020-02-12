@@ -16,11 +16,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@ApiModel(value = "第三方平台基础请求类")
-public class ThirdBaseReq {
-    @ApiModelProperty(value = "第三方平台id")
-    private Long id;
-    @ApiModelProperty(value = "第三方平台名")
+@ApiModel(value = "第三方平台新增请求类")
+public class ThirdAddReq {
+    @ApiModelProperty(value = "第三方平台名，必传")
     @NotNull
     private String name;
+    @ApiModelProperty(value = "第三方平台说明，选传")
+    private String thirdExplain;
 }

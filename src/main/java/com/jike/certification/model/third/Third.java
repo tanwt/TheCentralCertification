@@ -22,6 +22,7 @@ public class Third extends Model<Third> {
     @TableId(type = IdType.AUTO)
     private Long id;
     private String name;
+    private String thirdExplain;
     private Integer deleted;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;

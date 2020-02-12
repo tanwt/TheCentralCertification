@@ -43,10 +43,10 @@ public class ThirdService {
         }
     }
 
-    public ThirdVo addThird(ThirdBaseReq thirdBaseReq) {
-        MyAssert.notNull(thirdBaseReq, "三方平台新增数据为空");
-        MyAssert.notNull(thirdBaseReq.getName(), "三方平台名为空");
-        Third third = addThird(MyBeanUtils.myCopyProperties(thirdBaseReq, new Third()));
+    public ThirdVo addThird(ThirdAddReq thirdAddReq) {
+        MyAssert.notNull(thirdAddReq, "三方平台新增数据为空");
+        MyAssert.notNull(thirdAddReq.getName(), "三方平台名为空");
+        Third third = addThird(MyBeanUtils.myCopyProperties(thirdAddReq, new Third()));
         return MyBeanUtils.myCopyProperties(third, new ThirdVo());
     }
 

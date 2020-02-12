@@ -18,9 +18,11 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @ApiModel(value = "第三方平台分页请求基础类")
 public class ThirdPageReq {
-    @ApiModelProperty(value = "第三方平台名字，模糊查询，选传")
+    @ApiModelProperty(value = "第三方平台名字,模糊查询,选传")
     private String name;
-    @ApiModelProperty(value = "分页数据，必传")
+    @ApiModelProperty(value = "根据更新时间排序,生序 - asc, 降序 - desc, 默认desc,选传")
+    private String orderByUpdateTime;
+    @ApiModelProperty(value = "分页数据,必传")
     @NotNull
     private Pagination pagination;
 }

@@ -27,8 +27,8 @@ public class ThirdController {
 
     @PostMapping("addThird")
     @ApiOperation(value = "新增第三方系统")
-    public Response<ThirdVo> addThird(@Valid @RequestBody ThirdBaseReq thirdBaseReq) {
-        return ResponseUtil.makeSuccess(thirdService.addThird(thirdBaseReq));
+    public Response<ThirdVo> addThird(@Valid @RequestBody ThirdAddReq thirdAddReq) {
+        return ResponseUtil.makeSuccess(thirdService.addThird(thirdAddReq));
     }
 
     @PostMapping("updateThird")

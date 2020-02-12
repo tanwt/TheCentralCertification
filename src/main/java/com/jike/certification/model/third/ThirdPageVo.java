@@ -22,6 +22,8 @@ public class ThirdPageVo {
     private Long id;
     @ApiModelProperty(value = "第三方平台名字")
     private String name;
-    @ApiModelProperty(value = "第三方平台创建时间")
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "第三方平台说明")
+    private String thirdExplain;
+    @ApiModelProperty(value = "第三方平台更新时间")
+    private LocalDateTime updateTime;
 }
