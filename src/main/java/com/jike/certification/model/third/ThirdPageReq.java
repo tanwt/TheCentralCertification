@@ -22,7 +22,6 @@ public class ThirdPageReq {
     private String name;
     @ApiModelProperty(value = "根据更新时间排序,生序 - asc, 降序 - desc, 默认desc,选传")
     private String orderByUpdateTime;
-    @ApiModelProperty(value = "分页数据,必传")
     @NotNull
     private Pagination pagination;
 }

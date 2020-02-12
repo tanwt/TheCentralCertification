@@ -22,9 +22,9 @@ public class Pagination implements Serializable {
     private static final long serialVersionUID = -7441943820360560018L;
     public static int MAX_PAGE_SIZE = 100;
 
-    @ApiModelProperty(value = "分页大小")
+    @ApiModelProperty(value = "分页大小,必传")
     private Integer pageSize;
-    @ApiModelProperty(value = "分页页码")
+    @ApiModelProperty(value = "分页页码,必传")
     private Integer pageNum;
 
     /**
