@@ -13,6 +13,8 @@ import com.jike.certification.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author wentong
  * @date 2020-01-13
@@ -39,6 +41,11 @@ public class ThirdBiz {
         QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
         queryWrapper.eq("name", thirdName);
         return thirdDao.selectOne(queryWrapper);
+    }
+
+    public List<Third> queryAllThird(){
+        QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
+        return thirdDao.selectList(queryWrapper);
     }
 
     public PageQueryResponse<Third> thirdList(ThirdPageReq thirdPageReq){

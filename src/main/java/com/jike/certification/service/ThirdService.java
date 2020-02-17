@@ -2,14 +2,17 @@ package com.jike.certification.service;
 
 import com.jike.certification.biz.ThirdBiz;
 import com.jike.certification.model.third.*;
+import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;
 import com.jike.certification.util.PageQueryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author wentong
@@ -76,6 +79,11 @@ public class ThirdService {
     public int deleteThirdById(Long thirdId) {
         MyAssert.notNull(thirdId, "删除的平台id 为空");
         return thirdBiz.deleteThirdById(thirdId);
+    }
+
+    public List<ThirdVo> queryAllThird() {
+        List<Third> thirdList = thirdBiz.queryAllThird();
+        return CollectionUtil.transformList(thirdList, third -> MyBeanUtils.myCopyProperties(third, new ThirdVo()));
     }
 
     /**

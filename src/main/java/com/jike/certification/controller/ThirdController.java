@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author wentong
@@ -42,4 +43,11 @@ public class ThirdController {
     public Response<PageQueryResponse<ThirdPageVo>> thirdList(@Valid @RequestBody ThirdPageReq thirdPageReq) {
         return ResponseUtil.makeSuccess(thirdService.thirdList(thirdPageReq));
     }
+
+    @GetMapping("queryAllThird")
+    @ApiOperation(value = "获取所以第三方系统")
+    public Response<List<ThirdVo>> queryAllThird() {
+        return ResponseUtil.makeSuccess(thirdService.queryAllThird());
+    }
+
 }
