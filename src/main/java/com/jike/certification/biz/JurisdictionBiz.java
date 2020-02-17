@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jike.certification.dao.JurisdictionDao;
 import com.jike.certification.factory.WrapperFactory;
 import com.jike.certification.model.jurisdiction.Jurisdiction;
+import com.jike.certification.model.jurisdiction.JurisdictionListReq;
 import com.jike.certification.util.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,19 @@ public class JurisdictionBiz extends ServiceImpl<JurisdictionDao, Jurisdiction> 
         QueryWrapper queryWrapper = WrapperFactory.getQueryWrapper();
         queryWrapper.eq("third_id", thirdId);
         queryWrapper.in("name", nameList);
+        return jurisdictionDao.selectList(queryWrapper);
+    }
+
+    public List<Jurisdiction> queryJurisdictionList(JurisdictionListReq listReq) {
+        QueryWrapper queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("third_id", listReq.getThirdId());
+        queryWrapper.eq("jurisdiction_group_id", listReq.getJurisdictionGroupId());
+        return jurisdictionDao.selectList(queryWrapper);
+    }
+
+    public List<Jurisdiction> queryByGroupId(Long groupId) {
+        QueryWrapper queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("jurisdiction_group_id", groupId);
         return jurisdictionDao.selectList(queryWrapper);
     }
 

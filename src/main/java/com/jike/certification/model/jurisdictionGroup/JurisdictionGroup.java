@@ -1,4 +1,4 @@
-package com.jike.certification.model.jurisdiction;
+package com.jike.certification.model.jurisdictionGroup;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -16,15 +16,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@TableName("jurisdiction")
-public class Jurisdiction extends Model<Jurisdiction> {
+@TableName("jurisdiction_group")
+public class JurisdictionGroup extends Model<JurisdictionGroup> {
     @TableId(type = IdType.AUTO)
     private Long id;
     private Long thirdId;
-    private Long jurisdictionGroupId;
     private String name;
-    private String jurisdictionExplain;
+    private String typeExplain;
 
     private Integer deleted;
     private LocalDateTime createTime;

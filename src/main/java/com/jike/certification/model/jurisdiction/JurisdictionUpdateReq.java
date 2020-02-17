@@ -15,18 +15,21 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("权限新增请求类")
-public class JurisdictionInsertReq {
+@ApiModel("权限更新请求类")
+public class JurisdictionUpdateReq {
     @NotNull
+    @ApiModelProperty(value = "权限id,不能为空")
+    private Long id;
     @ApiModelProperty(value = "系统id,不能为空")
     private Long thirdId;
-    @NotNull
-    @ApiModelProperty(value = "权限组id,不能为空")
+    @ApiModelProperty(value = "权限组id,选填")
     private Long jurisdictionGroupId;
-    @NotNull
-    @ApiModelProperty(value = "权限名,不能为空")
+    @ApiModelProperty(value = "权限名,选填")
     private String name;
-    @ApiModelProperty(value = "权限解释")
+    @ApiModelProperty(value = "权限解释,选填")
     private String jurisdictionExplain;
+    @ApiModelProperty(value = "删除标示,0-正常 1-删除，选填")
+    private Integer deleted;
+
 
 }
