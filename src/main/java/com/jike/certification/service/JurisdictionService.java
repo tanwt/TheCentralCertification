@@ -13,7 +13,9 @@ import com.jike.certification.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -74,6 +76,9 @@ public class JurisdictionService {
     public List<JurisdictionListVo> queryJurisdictionList(JurisdictionListReq listReq) {
         MyAssert.notNull(listReq, "查询权限列表数据为空");
         List<Jurisdiction> jurisdictions = jurisdictionBiz.queryJurisdictionList(listReq);
+        if (CollectionUtils.isEmpty(jurisdictions)) {
+            return Collections.EMPTY_LIST;
+        }
         List<Long> groupIdList = CollectionUtil.transformList(jurisdictions, Jurisdiction::getJurisdictionGroupId);
         List<JurisdictionGroup> jurisdictionGroupList = jurisdictionGroupBiz.listByIds(groupIdList);
         Map<Long, JurisdictionGroup> groupMap = CollectionUtil.toMap(jurisdictionGroupList, JurisdictionGroup::getId);

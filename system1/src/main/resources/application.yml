@@ -77,3 +77,5 @@ mybatis:
 # swagger 打开配置
 swagger:
   enable: true
+server:
+  port: 8081

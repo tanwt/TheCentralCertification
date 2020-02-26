@@ -39,6 +39,7 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
         registry.addInterceptor(tokenValidateInterceptor())
             .addPathPatterns("/api/pc/**")
             .excludePathPatterns("/api/pc/user/**")
+            .excludePathPatterns("/api/pc/test/**")
             .excludePathPatterns("/api/pc/verifyCode/**");
     }
 
