@@ -4,6 +4,7 @@ import com.jike.certification.model.Response;
 import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupInsertReq;
 import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupListVo;
 import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupUpdateReq;
+import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupVo;
 import com.jike.certification.service.JurisdictionGroupService;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -29,13 +30,13 @@ public class JurisdictionGroupController {
 
     @PostMapping("addJurisdictionGroup")
     @ApiOperation(value = "新增权限组")
-    public Response<Boolean> addJurisdictionGroup(@RequestBody @Validated JurisdictionGroupInsertReq insertReq) {
+    public Response<JurisdictionGroupVo> addJurisdictionGroup(@RequestBody @Validated JurisdictionGroupInsertReq insertReq) {
         return ResponseUtil.makeSuccess(jurisdictionGroupService.addJurisdictionGroup(insertReq));
     }
 
     @PostMapping("updateJurisdictionGroup")
     @ApiOperation(value = "更新权限组")
-    public Response<Boolean> updateJurisdictionGroup(@RequestBody @Validated JurisdictionGroupUpdateReq updateReq) {
+    public Response<JurisdictionGroupVo> updateJurisdictionGroup(@RequestBody @Validated JurisdictionGroupUpdateReq updateReq) {
         return ResponseUtil.makeSuccess(jurisdictionGroupService.updateJurisdictionGroup(updateReq));
     }
 

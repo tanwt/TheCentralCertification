@@ -39,7 +39,7 @@ public class JurisdictionService {
      * 
      * @return
      */
-    public boolean addJurisdiction(JurisdictionInsertReq insertReq) {
+    public JurisdictionVo addJurisdiction(JurisdictionInsertReq insertReq) {
         MyAssert.notNull(insertReq, "权限新增数据为空");
         MyAssert.notNull(insertReq.getThirdId(), "权限新增数据: 系统ID 为空");
         MyAssert.notNull(insertReq.getJurisdictionGroupId(), "权限新增数据: 权限组ID 为空");
@@ -47,8 +47,9 @@ public class JurisdictionService {
         Jurisdiction jurisdiction = MyBeanUtils.myCopyProperties(insertReq, new Jurisdiction());
         Jurisdiction oldJurisdiction = jurisdictionBiz.queryByThirdIdAndName(jurisdiction.getThirdId(), jurisdiction.getName());
         MyAssert.isNull(oldJurisdiction, "该权限已存在");
-        boolean save = jurisdictionBiz.save(jurisdiction);
-        return save;
+        jurisdictionBiz.save(jurisdiction);
+        Jurisdiction newJurisdiction = jurisdictionBiz.getById(jurisdiction.getId());
+        return MyBeanUtils.myCopyProperties(newJurisdiction, new JurisdictionVo());
     }
 
     /**
@@ -58,7 +59,7 @@ public class JurisdictionService {
      * @param updateReq
      * @return
      */
-    public boolean updateJurisdiction(JurisdictionUpdateReq updateReq) {
+    public JurisdictionVo updateJurisdiction(JurisdictionUpdateReq updateReq) {
         MyAssert.notNull(updateReq, "权限更新数据为空");
         MyAssert.notNull(updateReq.getId(), "权限更新数据: 权限ID 为空");
             MyAssert.notNull(updateReq.getThirdId(), "权限更新数据: 系统id为空");
@@ -66,7 +67,9 @@ public class JurisdictionService {
             Jurisdiction oldJurisdiction = jurisdictionBiz.queryByThirdIdAndName(updateReq.getThirdId(), updateReq.getName());
             MyAssert.isNull(oldJurisdiction, "该权限已存在");
         }
-        return jurisdictionBiz.updateById(MyBeanUtils.myCopyProperties(updateReq, new Jurisdiction()));
+        jurisdictionBiz.updateById(MyBeanUtils.myCopyProperties(updateReq, new Jurisdiction()));
+        Jurisdiction newJurisdiction = jurisdictionBiz.getById(updateReq.getId());
+        return MyBeanUtils.myCopyProperties(newJurisdiction, new JurisdictionVo());
     }
 
     /**

@@ -4,10 +4,7 @@ import com.jike.certification.biz.JurisdictionBiz;
 import com.jike.certification.biz.JurisdictionGroupBiz;
 import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.model.jurisdiction.Jurisdiction;
-import com.jike.certification.model.jurisdictionGroup.JurisdictionGroup;
-import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupInsertReq;
-import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupListVo;
-import com.jike.certification.model.jurisdictionGroup.JurisdictionGroupUpdateReq;
+import com.jike.certification.model.jurisdictionGroup.*;
 import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;
@@ -39,14 +36,16 @@ public class JurisdictionGroupService {
      *
      * @return
      */
-    public boolean addJurisdictionGroup(JurisdictionGroupInsertReq insertReq) {
+    public JurisdictionGroupVo addJurisdictionGroup(JurisdictionGroupInsertReq insertReq) {
         MyAssert.notNull(insertReq, "权限组新增数据为空");
         MyAssert.notNull(insertReq.getThirdId(), "权限组新增数据: 系统ID 为空");
         MyAssert.notNull(insertReq.getName(), "权限组新增数据: 权限组名称为空");
         JurisdictionGroup jurisdictionGroup = MyBeanUtils.myCopyProperties(insertReq, new JurisdictionGroup());
         JurisdictionGroup oldJurisdictionGroup = groupBiz.queryByThirdIdAndName(jurisdictionGroup.getThirdId(), jurisdictionGroup.getName());
         MyAssert.isNull(oldJurisdictionGroup, "该权限组已存在");
-        return groupBiz.save(jurisdictionGroup);
+        groupBiz.save(jurisdictionGroup);
+        JurisdictionGroup newGroup = groupBiz.getById(jurisdictionGroup.getId());
+        return MyBeanUtils.myCopyProperties(newGroup, new JurisdictionGroupVo());
     }
 
     /**
@@ -56,14 +55,16 @@ public class JurisdictionGroupService {
      * @param updateReq
      * @return
      */
-    public boolean updateJurisdictionGroup(JurisdictionGroupUpdateReq updateReq) {
+    public JurisdictionGroupVo updateJurisdictionGroup(JurisdictionGroupUpdateReq updateReq) {
         MyAssert.notNull(updateReq, "权限组更新数据为空");
         MyAssert.notNull(updateReq.getId(), "权限组更新数据: 权限组id 为空");
         if(StringUtil.checkNotEmpty(updateReq.getName())) {
             JurisdictionGroup oldJurisdictionGroup = groupBiz.queryByThirdIdAndName(updateReq.getThirdId(), updateReq.getName());
             MyAssert.isNull(oldJurisdictionGroup, "系统已经存在该权限组");
         }
-        return groupBiz.updateById(MyBeanUtils.myCopyProperties(updateReq, new JurisdictionGroup()));
+        groupBiz.updateById(MyBeanUtils.myCopyProperties(updateReq, new JurisdictionGroup()));
+        JurisdictionGroup newGroup = groupBiz.getById(updateReq.getId());
+        return MyBeanUtils.myCopyProperties(newGroup, new JurisdictionGroupVo());
     }
 
     /**

@@ -35,7 +35,7 @@ public class ThirdRoleController {
 
     @ApiOperation(value = "更新角色")
     @PostMapping("updateRole")
-    public Response<Boolean> updateRole(@Validated @RequestBody ThirdRoleUpdateReq thirdRoleUpdateReq){
+    public Response<ThirdRoleVo> updateRole(@Validated @RequestBody ThirdRoleUpdateReq thirdRoleUpdateReq){
         return ResponseUtil.makeSuccess(thirdRoleService.updateRole(thirdRoleUpdateReq));
     }
 

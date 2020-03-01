@@ -1,6 +1,7 @@
 package com.jike.certification.biz;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.dao.ThirdRoleDao;
 import com.jike.certification.factory.WrapperFactory;
@@ -16,14 +17,10 @@ import java.util.List;
  * @date 2020-01-27
  */
 @Service
-public class ThirdRoleBiz {
+public class ThirdRoleBiz extends ServiceImpl<ThirdRoleDao, ThirdRole> {
 
     @Autowired
     private ThirdRoleDao thirdRoleDao;
-
-    public Long save(ThirdRole thirdRole) {
-        return Long.valueOf(thirdRoleDao.insert(thirdRole));
-    }
 
     public ThirdRole selectOne(ThirdRole thirdRole) {
         QueryWrapper<ThirdRole> queryWrapper = WrapperFactory.getQueryWrapper();

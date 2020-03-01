@@ -2,6 +2,8 @@ package com.jike.certification.biz;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jike.certification.commentEnum.OrderEnum;
 import com.jike.certification.dao.ThirdDao;
 import com.jike.certification.factory.WrapperFactory;
@@ -20,14 +22,10 @@ import java.util.List;
  * @date 2020-01-13
  */
 @Service
-public class ThirdBiz {
+public class ThirdBiz extends ServiceImpl<ThirdDao, Third> {
 
     @Autowired
     private ThirdDao thirdDao;
-
-    public Long save(Third third) {
-        return Long.valueOf(thirdDao.insert(third));
-    }
 
     public int update(Third third) {
         return thirdDao.updateById(third);

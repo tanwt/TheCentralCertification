@@ -59,7 +59,7 @@ public class ThirdService {
      * @param third
      * @return
      */
-    public int updateThird(Third third) {
+    public ThirdVo updateThird(Third third) {
         MyAssert.notNull(third, "三方平台更新数据为空");
         MyAssert.notNull(third.getId(), "三方平台id 为空");
         String thirdName = third.getName();
@@ -67,7 +67,9 @@ public class ThirdService {
             Third oldThird = thirdBiz.queryByName(thirdName);
             MyAssert.isNull(oldThird, "该三方系统已存在");
         }
-        return thirdBiz.update(third);
+        thirdBiz.update(third);
+        Third updateThird = thirdBiz.getById(third.getId());
+        return MyBeanUtils.myCopyProperties(updateThird, new ThirdVo());
     }
 
     /**

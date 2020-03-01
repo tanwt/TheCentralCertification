@@ -44,7 +44,7 @@ public class ThirdRoleService {
         ThirdRole thirdRole = MyBeanUtils.myCopyProperties(thirdRoleAddReq, new ThirdRole());
         ThirdRole oldThirdRole = thirdRoleBiz.selectOne(thirdRole);
         MyAssert.isNull(oldThirdRole, "该系统已存在该角色");
-        Long save = thirdRoleBiz.save(thirdRole);
+        thirdRoleBiz.save(thirdRole);
         return MyBeanUtils.myCopyProperties(thirdRole, new ThirdRoleVo());
     }
 
@@ -54,11 +54,13 @@ public class ThirdRoleService {
      * @param thirdRoleUpdateReq
      * @return
      */
-    public boolean updateRole(ThirdRoleUpdateReq thirdRoleUpdateReq) {
+    public ThirdRoleVo updateRole(ThirdRoleUpdateReq thirdRoleUpdateReq) {
         MyAssert.notNull(thirdRoleUpdateReq, "更新信息为空");
         MyAssert.notNull(thirdRoleUpdateReq.getId(), "更新的角色id 不能为空");
         ThirdRole thirdRole = MyBeanUtils.myCopyProperties(thirdRoleUpdateReq, new ThirdRole());
-        return thirdRole.updateById();
+        thirdRole.updateById();
+        ThirdRole updateThirdRole = thirdRoleBiz.getById(thirdRole.getId());
+        return MyBeanUtils.myCopyProperties(updateThirdRole, new ThirdRoleVo());
     }
 
     /**

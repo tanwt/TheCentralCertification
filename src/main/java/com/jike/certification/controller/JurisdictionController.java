@@ -1,10 +1,7 @@
 package com.jike.certification.controller;
 
 import com.jike.certification.model.Response;
-import com.jike.certification.model.jurisdiction.JurisdictionInsertReq;
-import com.jike.certification.model.jurisdiction.JurisdictionListReq;
-import com.jike.certification.model.jurisdiction.JurisdictionListVo;
-import com.jike.certification.model.jurisdiction.JurisdictionUpdateReq;
+import com.jike.certification.model.jurisdiction.*;
 import com.jike.certification.service.JurisdictionService;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -30,13 +27,13 @@ public class JurisdictionController {
 
     @PostMapping("addJurisdiction")
     @ApiOperation(value = "新增权限")
-    public Response<Boolean> addJurisdiction(@RequestBody JurisdictionInsertReq insertReq) {
+    public Response<JurisdictionVo> addJurisdiction(@RequestBody JurisdictionInsertReq insertReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.addJurisdiction(insertReq));
     }
 
     @PostMapping("updateJurisdiction")
     @ApiOperation(value = "更新权限")
-    public Response<Boolean> updateJurisdiction(@RequestBody @Validated JurisdictionUpdateReq updateReq) {
+    public Response<JurisdictionVo> updateJurisdiction(@RequestBody @Validated JurisdictionUpdateReq updateReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.updateJurisdiction(updateReq));
     }
 

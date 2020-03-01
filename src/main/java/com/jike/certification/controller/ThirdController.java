@@ -34,7 +34,7 @@ public class ThirdController {
 
     @PostMapping("updateThird")
     @ApiOperation(value = "更新第三方系统")
-    public Response<Integer> updateThird(@Valid @RequestBody ThirdUpdateReq thirdUpdateReq) {
+    public Response<ThirdVo> updateThird(@Valid @RequestBody ThirdUpdateReq thirdUpdateReq) {
         return ResponseUtil.makeSuccess(thirdService.updateThird(MyBeanUtils.myCopyProperties(thirdUpdateReq, new Third())));
     }
 
