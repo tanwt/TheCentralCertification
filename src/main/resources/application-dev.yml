@@ -1,13 +1,14 @@
-#
-#spring:
-#  datasource:
-#    druid:
-#      max-active: 300
-#      max-pool-prepared-statement-per-connection-size: 100
-#      abs:
-#        database: central_certification
-#        host: 120.79.94.90
-#        port: 3306
-#        username: root
-#        password: 123456
+spring:
+  #  数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/central_certification?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
 
+  # redis 配置
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+#    password: redis123

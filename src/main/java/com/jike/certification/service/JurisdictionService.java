@@ -47,7 +47,8 @@ public class JurisdictionService {
         Jurisdiction jurisdiction = MyBeanUtils.myCopyProperties(insertReq, new Jurisdiction());
         Jurisdiction oldJurisdiction = jurisdictionBiz.queryByThirdIdAndName(jurisdiction.getThirdId(), jurisdiction.getName());
         MyAssert.isNull(oldJurisdiction, "该权限已存在");
-        return jurisdictionBiz.save(jurisdiction);
+        boolean save = jurisdictionBiz.save(jurisdiction);
+        return save;
     }
 
     /**
