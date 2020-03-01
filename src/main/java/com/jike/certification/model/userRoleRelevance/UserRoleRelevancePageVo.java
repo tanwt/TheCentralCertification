@@ -1,9 +1,13 @@
 package com.jike.certification.model.userRoleRelevance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jike.certification.model.user.UserVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 /**
  * @author wentong
@@ -24,4 +28,8 @@ public class UserRoleRelevancePageVo {
     private Long roleId;
     @ApiModelProperty(value = "用户信息")
     private UserVo userVo;
+    @ApiModelProperty(value = "更新时间")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }

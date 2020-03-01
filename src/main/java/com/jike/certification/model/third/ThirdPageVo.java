@@ -1,9 +1,11 @@
 package com.jike.certification.model.third;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jike.certification.model.Pagination;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -25,5 +27,7 @@ public class ThirdPageVo {
     @ApiModelProperty(value = "第三方平台说明")
     private String thirdExplain;
     @ApiModelProperty(value = "第三方平台更新时间")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
