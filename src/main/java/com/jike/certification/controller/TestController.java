@@ -31,6 +31,7 @@ public class TestController {
     public String test1() throws InterruptedException {
 //        Thread.sleep(400L);
         System.out.println("test1");
+
         return "test1";
     }
 
