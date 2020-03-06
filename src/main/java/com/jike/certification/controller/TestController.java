@@ -2,12 +2,13 @@ package com.jike.certification.controller;
 
 import com.jike.certification.config.redis.RedisHandler;
 import com.jike.certification.util.ContextUtil;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author wentong
@@ -31,5 +32,11 @@ public class TestController {
 //        Thread.sleep(400L);
         System.out.println("test1");
         return "test1";
+    }
+
+    @GetMapping("test2")
+    public void test2(HttpServletResponse response, @RequestParam("code") Integer code){
+        System.out.println("code: " + code);
+        response.setStatus(code);
     }
 }
