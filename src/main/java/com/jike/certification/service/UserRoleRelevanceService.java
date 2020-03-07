@@ -1,11 +1,9 @@
 package com.jike.certification.service;
 
-import com.jike.certification.biz.UserBiz;
 import com.jike.certification.biz.UserRoleRelevanceBiz;
+import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.model.user.UserVo;
-import com.jike.certification.model.userRoleRelevance.UserRoleRelevance;
-import com.jike.certification.model.userRoleRelevance.UserRoleRelevancePageReq;
-import com.jike.certification.model.userRoleRelevance.UserRoleRelevancePageVo;
+import com.jike.certification.model.userRoleRelevance.*;
 import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;
@@ -15,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author wentong
@@ -33,6 +30,29 @@ public class UserRoleRelevanceService {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * 新增一个用户角色关联
+     * @param userRoleRelevanceInsert
+     * @return
+     */
+    public Long addUserRoleRelevance(UserRoleRelevanceInsert userRoleRelevanceInsert) {
+        MyAssert.notNull(userRoleRelevanceInsert, "用户角色关联新增,数据为空");
+        MyAssert.notNull(userRoleRelevanceInsert.getThirdId(), "用户角色关联新增, 系统id 数据为空");
+        MyAssert.notNull(userRoleRelevanceInsert.getRoleId(), "用户角色关联新增,角色id 数据为空");
+        MyAssert.notNull(userRoleRelevanceInsert.getUserId(), "用户角色关联新增, 用户id 数据为空");
+        UserRoleRelevance oldRel = userRoleRelevanceBiz.selectByThirdIdAndRoleIdAndUserId(userRoleRelevanceInsert.getThirdId(),
+            userRoleRelevanceInsert.getRoleId(),
+            userRoleRelevanceInsert.getUserId());
+        if (oldRel == null) {
+            UserRoleRelevance newRel = MyBeanUtils.myCopyProperties(userRoleRelevanceInsert, new UserRoleRelevance());
+            userRoleRelevanceBiz.save(newRel);
+            return newRel.getId();
+        } else {
+            return oldRel.getId();
+        }
+
+    }
 
     /**
      * 给系统的角色批量新增用户关联
@@ -106,6 +126,29 @@ public class UserRoleRelevanceService {
     }
 
     /**
+     * 返回一个系统的用户角色关联
+     *
+     * @param thirdId
+     * @return
+     */
+    public List<UserRoleRelevanceListVo> userRoleRelevanceList(Long thirdId) {
+        if (thirdId == null) {
+            return Collections.EMPTY_LIST;
+        }
+        List<UserRoleRelevance> userRoleRelevanceList = userRoleRelevanceBiz.queryByThirdId(thirdId);
+        // 关联用户
+        List<Long> userIdList = CollectionUtil.transformListDistinct(userRoleRelevanceList, UserRoleRelevance::getUserId);
+        List<UserVo> userVoList = userService.queryByUserIdList(userIdList);
+        Map<Long, UserVo> userVoMap = CollectionUtil.toMap(userVoList, UserVo::getId);
+        List<UserRoleRelevanceListVo> userRoleRelevanceListVoList = CollectionUtil.transformList(userRoleRelevanceList, v -> {
+            UserRoleRelevanceListVo userRoleRelevanceListVo = MyBeanUtils.myCopyProperties(v, new UserRoleRelevanceListVo());
+            userRoleRelevanceListVo.setUserVo(userVoMap.get(v.getUserId()));
+            return userRoleRelevanceListVo;
+        });
+        return userRoleRelevanceListVoList;
+    }
+
+    /**
      * 删除某个角色对应的用户角色关联
      *
      * @param roleId
@@ -116,6 +159,20 @@ public class UserRoleRelevanceService {
         List<UserRoleRelevance> userRoleRelevanceList = userRoleRelevanceBiz.queryByRoleId(roleId);
         List<Long> userIdList = CollectionUtil.transformList(userRoleRelevanceList, UserRoleRelevance::getUserId);
         return deletedBatch(userIdList);
+    }
+
+    /**
+     * 删除某个用户角色关联
+     *
+     * @return
+     */
+    public boolean deletedRelevance(Long relevanceId) {
+        MyAssert.notNull(relevanceId, "要删除的关联id 为空");
+        UserRoleRelevance userRoleRelevance = UserRoleRelevance.builder()
+                                                  .id(relevanceId)
+                                                  .deleted(DeleteStatus.DELETED.getValue())
+                                                  .build();
+        return userRoleRelevanceBiz.updateById(userRoleRelevance);
     }
 
     /**
@@ -131,4 +188,6 @@ public class UserRoleRelevanceService {
         }
         return userRoleRelevanceBiz.deleteBatch(idList);
     }
+
+
 }

@@ -4,6 +4,7 @@ import com.jike.certification.biz.JurisdictionBiz;
 import com.jike.certification.biz.JurisdictionGroupBiz;
 import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.model.jurisdiction.Jurisdiction;
+import com.jike.certification.model.jurisdiction.JurisdictionVo;
 import com.jike.certification.model.jurisdictionGroup.*;
 import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wentong
@@ -97,12 +99,39 @@ public class JurisdictionGroupService {
      */
     public List<JurisdictionGroupListVo> getAllGroupByThirdId(Long thirdId) {
         if (thirdId == null) {
-            log.warn("查找一个系统下的所有权限组，出现未知系统id: {}", thirdId);
+            log.warn("查找一个系统下的所有权限组，系统id 为空: {}", thirdId);
             return Collections.EMPTY_LIST;
         }
         List<JurisdictionGroup> jurisdictionGroupList = groupBiz.queryAllByThirdId(thirdId);
         return CollectionUtil.transformList(jurisdictionGroupList, v -> {
             return MyBeanUtils.myCopyProperties(v, new JurisdictionGroupListVo());
+        });
+    }
+
+    /**
+     * 获取一个系统下的权限组及其权限信息
+     *
+     * @param thirdId
+     * @return
+     */
+    public List<GroupWithJurisdictionVo> getGroupWithJurisdictionByThirdId(Long thirdId) {
+        if (thirdId == null) {
+            log.warn("获取一个系统下的权限组及其权限信息，系统id 为空: {}", thirdId);
+            return Collections.EMPTY_LIST;
+        }
+        List<JurisdictionGroup> jurisdictionGroupList = groupBiz.queryAllByThirdId(thirdId);
+        List<Long> groupIdList = CollectionUtil.transformList(jurisdictionGroupList, JurisdictionGroup::getId);
+        List<Jurisdiction> jurisdictionList = jurisdictionBiz.queryByGroupIdList(groupIdList);
+        Map<Long, List<Jurisdiction>> map = CollectionUtil.toMapGroupingBy(jurisdictionList, Jurisdiction::getJurisdictionGroupId);
+        return CollectionUtil.transformList(jurisdictionGroupList, v -> {
+            List<Jurisdiction> jurisdictions = map.get(v.getId());
+            List<JurisdictionVo> jurisdictionVoList = CollectionUtil.transformList(jurisdictions, jurisdiction -> {
+                return MyBeanUtils.myCopyProperties(jurisdiction, new JurisdictionVo());
+            });
+            return GroupWithJurisdictionVo.builder()
+                       .jurisdictionGroupVo(MyBeanUtils.myCopyProperties(v, new JurisdictionGroupVo()))
+                       .jurisdictionVoList(jurisdictionVoList)
+                       .build();
         });
     }
 }

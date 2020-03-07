@@ -10,6 +10,7 @@ import com.jike.certification.model.verify.VerifyCode;
 import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;
+import com.jike.certification.util.PageQueryResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,6 +104,19 @@ public class UserService {
             return userVo;
         });
         return userVoList;
+    }
+
+    /**
+     * 用户信息分页获取
+     *
+     * @param userPageReq
+     * @return
+     */
+    public PageQueryResponse<UserVo> userPageList(UserPageReq userPageReq){
+        PageQueryResponse<User> userPageQueryResponse = userBiz.userPageList(userPageReq);
+        return userPageQueryResponse.transform(v -> {
+            return MyBeanUtils.myCopyProperties(v, new UserVo());
+        });
     }
 
 }

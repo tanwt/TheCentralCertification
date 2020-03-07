@@ -2,6 +2,7 @@ package com.jike.certification.controller;
 
 import com.jike.certification.model.Response;
 import com.jike.certification.model.thirdRole.ThirdRoleAddReq;
+import com.jike.certification.model.thirdRole.ThirdRoleInfoVo;
 import com.jike.certification.model.thirdRole.ThirdRoleUpdateReq;
 import com.jike.certification.model.thirdRole.ThirdRoleVo;
 import com.jike.certification.service.ThirdRoleService;
@@ -45,10 +46,10 @@ public class ThirdRoleController {
         return ResponseUtil.makeSuccess(thirdRoleService.deletedRole(roleId));
     }
 
-    @ApiOperation(value = "查询一个系统中的角色")
+    @ApiOperation(value = "查询一个系统中的角色信息")
     @GetMapping("selectByThirdId")
-    public Response<List<ThirdRoleVo>> selectByThirdId(Long thirdId){
-        List<ThirdRoleVo> thirdRoleVos = thirdRoleService.selectByThirdId(thirdId);
+    public Response<List<ThirdRoleInfoVo>> selectByThirdId(Long thirdId){
+        List<ThirdRoleInfoVo> thirdRoleVos = thirdRoleService.selectByThirdId(thirdId);
         return ResponseUtil.makeSuccess(thirdRoleVos);
     }
 }

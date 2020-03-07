@@ -44,10 +44,17 @@ public class ThirdController {
         return ResponseUtil.makeSuccess(thirdService.thirdList(thirdPageReq));
     }
 
+    @GetMapping("getUserThirdInfo")
+    @ApiOperation(value = "获取用户在各个系统的信息")
+    public Response<List<UserThirdInfoVo>> getUserThirdInfo(Long userId) {
+        return ResponseUtil.makeSuccess(thirdService.getUserThirdInfo(userId));
+    }
+
     @GetMapping("queryAllThird")
-    @ApiOperation(value = "获取所以第三方系统")
+    @ApiOperation(value = "获取所有第三方系统")
     public Response<List<ThirdVo>> queryAllThird() {
         return ResponseUtil.makeSuccess(thirdService.queryAllThird());
     }
+
 
 }

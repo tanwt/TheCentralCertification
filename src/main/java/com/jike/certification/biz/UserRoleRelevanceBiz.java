@@ -59,11 +59,40 @@ public class UserRoleRelevanceBiz extends ServiceImpl<UserRoleRelevanceDao, User
         return userRoleRelevanceDao.selectList(queryWrapper);
     }
 
+    public List<UserRoleRelevance> queryByThirdId(Long thirdId) {
+        QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("third_id", thirdId);
+        return userRoleRelevanceDao.selectList(queryWrapper);
+    }
+
+    public List<UserRoleRelevance> queryByThirdIdList(List<Long> thirdIdList) {
+        if (CollectionUtils.isEmpty(thirdIdList)) {
+            return Collections.EMPTY_LIST;
+        }
+        QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.in("third_id", thirdIdList);
+        return userRoleRelevanceDao.selectList(queryWrapper);
+    }
+
+    public List<UserRoleRelevance> queryByUserId(Long userId) {
+        QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("user_id", userId);
+        return userRoleRelevanceDao.selectList(queryWrapper);
+    }
+
     public PageQueryResponse<UserRoleRelevance> userRoleRelevancePage(UserRoleRelevancePageReq userRoleRelevancePageReq){
         QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
         Pagination pagination = userRoleRelevancePageReq.getPagination();
         Page<UserRoleRelevance> page = new Page<>(pagination.getPageNum(), pagination.getPageSize());
         return PageQueryResponse.buildPageQueryResponse(userRoleRelevanceDao.selectPage(page, queryWrapper));
+    }
+
+    public UserRoleRelevance selectByThirdIdAndRoleIdAndUserId(Long thirdId, Long roleId, Long userId) {
+        QueryWrapper<UserRoleRelevance> queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.in("third_id", thirdId);
+        queryWrapper.in("role_id", roleId);
+        queryWrapper.in("user_id", userId);
+        return userRoleRelevanceDao.selectOne(queryWrapper);
     }
 
 }

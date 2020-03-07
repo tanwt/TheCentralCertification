@@ -1,7 +1,13 @@
 package com.jike.certification.service;
 
 import com.jike.certification.biz.ThirdBiz;
+import com.jike.certification.biz.ThirdRoleBiz;
+import com.jike.certification.biz.UserRoleRelevanceBiz;
 import com.jike.certification.model.third.*;
+import com.jike.certification.model.thirdRole.ThirdRole;
+import com.jike.certification.model.thirdRole.ThirdRoleVo;
+import com.jike.certification.model.userRoleRelevance.UserRoleRelevance;
+import com.jike.certification.model.userRoleRelevance.UserRoleRelevanceInfoVo;
 import com.jike.certification.util.CollectionUtil;
 import com.jike.certification.util.MyAssert;
 import com.jike.certification.util.MyBeanUtils;
@@ -9,10 +15,10 @@ import com.jike.certification.util.PageQueryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wentong
@@ -24,6 +30,12 @@ public class ThirdService {
 
     @Autowired
     private ThirdBiz thirdBiz;
+
+    @Autowired
+    private UserRoleRelevanceBiz userRoleRelevanceBiz;
+
+    @Autowired
+    private ThirdRoleBiz thirdRoleBiz;
 
     /**
      * 新增第三方平台
@@ -99,6 +111,38 @@ public class ThirdService {
         PageQueryResponse<Third> thirdPageQueryResponse = thirdBiz.thirdList(thirdPageReq);
         return thirdPageQueryResponse.transform(third -> {
             return MyBeanUtils.myCopyProperties(third, new ThirdPageVo());
+        });
+    }
+
+    /**
+     * 获取用户在各个系统的信息
+     *
+     * @param userId
+     * @return
+     */
+    public List<UserThirdInfoVo> getUserThirdInfo(Long userId) {
+        MyAssert.notNull(userId, "查用用户系统信息：userId 为空");
+        List<ThirdVo> allThird = queryAllThird();
+        List<ThirdRole> allRoleList = thirdRoleBiz.selectByThirdIdList(CollectionUtil.transformList(allThird, ThirdVo::getId));
+        Map<Long, List<ThirdRole>> roleByThirdIdMap = CollectionUtil.toMapGroupingBy(allRoleList, ThirdRole::getThirdId);
+        List<UserRoleRelevance> userRoleRelList = userRoleRelevanceBiz.queryByUserId(userId);
+        Map<Long, List<UserRoleRelevance>> userRoleRelByThirdIdMap = CollectionUtil.toMapGroupingBy(userRoleRelList, UserRoleRelevance::getThirdId);
+        return CollectionUtil.transformList(allThird, thirdVo -> {
+            List<ThirdRole> thirdRoleList = roleByThirdIdMap.get(thirdVo.getId());
+            List<UserRoleRelevance> userRoleRelevanceList = userRoleRelByThirdIdMap.get(thirdVo.getId());
+            Map<Long, UserRoleRelevance> relevanceMap = CollectionUtil.toMap(userRoleRelevanceList, UserRoleRelevance::getRoleId);
+            List<UserRoleRelevanceInfoVo> userRoleRelevanceInfoVoList = CollectionUtil.transformList(thirdRoleList, thirdRole -> {
+                UserRoleRelevance userRoleRelevance = relevanceMap.get(thirdRole.getId());
+                return UserRoleRelevanceInfoVo.builder()
+                           .thirdRoleVo(MyBeanUtils.myCopyProperties(thirdRole, new ThirdRoleVo()))
+                           .relevanceId(userRoleRelevance == null ? null : userRoleRelevance.getId())
+                           .haveRole(userRoleRelevance != null)
+                           .build();
+            });
+            return UserThirdInfoVo.builder()
+                       .thirdVo(thirdVo)
+                       .userRoleRelevanceInfoVoList(userRoleRelevanceInfoVoList)
+                       .build();
         });
     }
 }
