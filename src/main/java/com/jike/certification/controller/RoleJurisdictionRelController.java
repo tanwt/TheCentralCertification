@@ -22,13 +22,13 @@ public class RoleJurisdictionRelController {
     private RoleJurisdictionRelevanceService relevanceService;
 
     @PostMapping("addRelevance")
-    @ApiOperation("新增用户权限关联")
+    @ApiOperation("新增角色权限关联")
     public RoleJurisdictionRelevanceVo addRelevance(@RequestBody RoleJurisdictionRelevanceInsertReq insertReq){
         return relevanceService.getOrAddRel(insertReq);
     }
 
     @PostMapping("deleteRelevance")
-    @ApiOperation("删除用户权限关联")
+    @ApiOperation("删除角色权限关联")
     public boolean deleteRelevance(Long relId){
         return relevanceService.deletedRel(relId);
     }
