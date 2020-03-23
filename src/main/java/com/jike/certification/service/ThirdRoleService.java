@@ -121,14 +121,16 @@ public class ThirdRoleService {
         Map<Long, List<RoleJurisdictionRelevance>> roleJurisdictionRelevanceListMap = CollectionUtil.toMapGroupingBy(roleJurisdictionRelevanceList, RoleJurisdictionRelevance::getRoleId);
         return CollectionUtil.transformList(thirdRoleList, v -> {
             List<RoleJurisdictionRelevance> roleJurisdictionRelevances = roleJurisdictionRelevanceListMap.get(v.getId());
-            Map<Long, List<RoleJurisdictionRelevance>> listMap = CollectionUtil.toMapGroupingBy(roleJurisdictionRelevances, RoleJurisdictionRelevance::getJurisdictionId);
+            Map<Long, RoleJurisdictionRelevance> roleJurisdictionRelevanceMap = CollectionUtil.toMap(roleJurisdictionRelevances, RoleJurisdictionRelevance::getJurisdictionId);
             // 构造权限组及其权限
             List<RoleJurisdictionGroupVo> roleJurisdictionGroupVoList = CollectionUtil.transformList(jurisdictionGroupListVo, group -> {
                 List<Jurisdiction> jurisdictions = jurisdictionListByGroupId.get(group.getId());
                 List<RoleJurisdictionVo> roleJurisdictionVoList = CollectionUtil.transformList(jurisdictions, jurisdiction -> {
+                    boolean haveJurisdiction = roleJurisdictionRelevanceMap.containsKey(jurisdiction.getId());
                     return RoleJurisdictionVo.builder()
                                .jurisdictionVo(MyBeanUtils.myCopyProperties(jurisdiction, new JurisdictionVo()))
-                               .haveJurisdiction(listMap.containsKey(jurisdiction.getId()))
+                               .haveJurisdiction(haveJurisdiction)
+                               .relevanceId(haveJurisdiction ? roleJurisdictionRelevanceMap.get(jurisdiction.getId()).getId() : null)
                                .build();
                 });
                 return RoleJurisdictionGroupVo.builder()

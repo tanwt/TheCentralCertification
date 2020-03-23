@@ -45,10 +45,10 @@ public class RoleJurisdictionRelevanceService {
         }
     }
 
-    public boolean deletedRel(Long relId) {
-        MyAssert.notNull(relId, "要删除的用户权限关联id 为空");
+    public boolean deletedRel(Long relevanceId) {
+        MyAssert.notNull(relevanceId, "要删除的用户权限关联id 为空");
         RoleJurisdictionRelevance roleJurisdictionRelevance = RoleJurisdictionRelevance.builder()
-                                                                  .id(relId)
+                                                                  .id(relevanceId)
                                                                   .deleted(DeleteStatus.DELETED.getValue())
                                                                   .build();
         return relevanceBiz.updateById(roleJurisdictionRelevance);

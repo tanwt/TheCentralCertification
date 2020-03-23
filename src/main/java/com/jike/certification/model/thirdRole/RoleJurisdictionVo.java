@@ -24,4 +24,6 @@ public class RoleJurisdictionVo {
     private JurisdictionVo jurisdictionVo;
     @ApiModelProperty(value = "是否拥有该权限，false 没有，true 有")
     private boolean haveJurisdiction;
+    @ApiModelProperty(value = "角色权限关联id，没有关联为null")
+    private Long relevanceId;
 }
