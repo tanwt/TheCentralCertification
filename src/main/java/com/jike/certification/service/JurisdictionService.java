@@ -36,7 +36,7 @@ public class JurisdictionService {
     /**
      * 给某个系统新增权限
      * 根据名称去重
-     * 
+     *
      * @return
      */
     public JurisdictionVo addJurisdiction(JurisdictionInsertReq insertReq) {
@@ -62,7 +62,6 @@ public class JurisdictionService {
     public JurisdictionVo updateJurisdiction(JurisdictionUpdateReq updateReq) {
         MyAssert.notNull(updateReq, "权限更新数据为空");
         MyAssert.notNull(updateReq.getId(), "权限更新数据: 权限ID 为空");
-            MyAssert.notNull(updateReq.getThirdId(), "权限更新数据: 系统id为空");
         if (StringUtil.checkNotEmpty(updateReq.getName())) {
             Jurisdiction oldJurisdiction = jurisdictionBiz.queryByThirdIdAndName(updateReq.getThirdId(), updateReq.getName());
             MyAssert.isNull(oldJurisdiction, "该权限已存在");
@@ -74,6 +73,7 @@ public class JurisdictionService {
 
     /**
      * 查询权限列表
+     *
      * @param listReq
      * @return
      */
