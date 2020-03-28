@@ -21,7 +21,7 @@ public class MyExceptionHandler {
     @ResponseBody
     public Response exceptionHandler(Exception e){
         log.error("未知错误:{}", e.getMessage());
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return ResponseUtil.makeFail(e.getMessage());
     }
 
@@ -29,7 +29,7 @@ public class MyExceptionHandler {
     @ResponseBody
     public Response exceptionHandler(RuntimeException e){
         log.error("运行时异常:{}", e.getMessage());
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return ResponseUtil.makeFail(e.getMessage());
     }
 
@@ -37,7 +37,7 @@ public class MyExceptionHandler {
     @ResponseBody
     public Response exceptionHandler(ApiRuntimeException e){
         log.error("逻辑错误:{}", e.getMessage());
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return ResponseUtil.makeFail(e.getErrorCode());
     }
 }

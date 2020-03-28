@@ -32,4 +32,9 @@ public class TestController {
 
         return "test1";
     }
+
+    @PostMapping("test2")
+    public String test2() throws Exception {
+        throw new Exception();
+    }
 }
