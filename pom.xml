@@ -119,6 +119,12 @@
             <artifactId>commons-codec</artifactId>
             <version>1.11</version>
         </dependency>
+        <!--日志-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
 
         <!-- 分页插件 -->
         <!--<dependency>-->

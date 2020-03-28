@@ -12,6 +12,7 @@ import com.jike.certification.util.PageQueryResponse;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ import javax.validation.constraints.NotNull;
  * @date 2019-12-26
  */
 @RestController
+@Slf4j
 @RequestMapping(path = "api/pc/user")
 @Api(value = "用户PC 端相关接口")
 public class UserController {
@@ -53,6 +55,7 @@ public class UserController {
     @PostMapping("userPageList")
     @ApiOperation(value = "用户信息分页获取")
     public Response<PageQueryResponse<UserVo>> userPageList(@RequestBody UserPageReq userPageReq){
+        log.info("用户登陆请求数据:{}", userPageReq);
         return ResponseUtil.makeSuccess(userService.userPageList(userPageReq));
     }
 }

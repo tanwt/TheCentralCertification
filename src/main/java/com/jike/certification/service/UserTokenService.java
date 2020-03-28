@@ -61,7 +61,12 @@ public class UserTokenService {
      */
     public UserToken getUserToken(String token) {
         String key = tokenKey(token);
-        UserToken userToken = redisHandler.get(key, UserToken.class);
+        UserToken userToken = null;
+        try {
+            userToken = redisHandler.get(key, UserToken.class);
+        }catch (Exception e) {
+            log.error("getUserToken 出错:{}", e.getMessage());
+        }
         if (userToken == null) {
             userToken = userTokenBiz.queryByToken(token);
             if (userToken == null || userToken.getExpireTime().isBefore(LocalDateTime.now())){
