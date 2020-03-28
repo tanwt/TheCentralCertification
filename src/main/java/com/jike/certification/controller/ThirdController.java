@@ -38,19 +38,19 @@ public class ThirdController {
         return ResponseUtil.makeSuccess(thirdService.updateThird(MyBeanUtils.myCopyProperties(thirdUpdateReq, new Third())));
     }
 
-    @GetMapping("thirdList")
+    @RequestMapping("thirdList")
     @ApiOperation(value = "第三方系统分页获取")
     public Response<PageQueryResponse<ThirdPageVo>> thirdList(@Valid @RequestBody ThirdPageReq thirdPageReq) {
         return ResponseUtil.makeSuccess(thirdService.thirdList(thirdPageReq));
     }
 
-    @GetMapping("getUserThirdInfo")
+    @RequestMapping("getUserThirdInfo")
     @ApiOperation(value = "获取用户在各个系统的信息")
     public Response<List<UserThirdInfoVo>> getUserThirdInfo(Long userId) {
         return ResponseUtil.makeSuccess(thirdService.getUserThirdInfo(userId));
     }
 
-    @GetMapping("queryAllThird")
+    @RequestMapping("queryAllThird")
     @ApiOperation(value = "获取所有第三方系统")
     public Response<List<ThirdVo>> queryAllThird() {
         return ResponseUtil.makeSuccess(thirdService.queryAllThird());
