@@ -50,7 +50,7 @@ public class UserController {
         return ResponseUtil.makeSuccess(userTokenService.getUserToken(token));
     }
 
-    @GetMapping("userPageList")
+    @PostMapping("userPageList")
     @ApiOperation(value = "用户信息分页获取")
     public Response<PageQueryResponse<UserVo>> userPageList(@RequestBody UserPageReq userPageReq){
         return ResponseUtil.makeSuccess(userService.userPageList(userPageReq));

@@ -37,7 +37,7 @@ public class JurisdictionController {
         return ResponseUtil.makeSuccess(jurisdictionService.updateJurisdiction(updateReq));
     }
 
-    @GetMapping("queryJurisdictionList")
+    @PostMapping("queryJurisdictionList")
     @ApiOperation(value = "获取权限列表")
     public Response<List<JurisdictionListVo>> queryJurisdictionList(@RequestBody @Validated JurisdictionListReq listReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.queryJurisdictionList(listReq));
