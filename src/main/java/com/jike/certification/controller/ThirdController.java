@@ -26,31 +26,36 @@ public class ThirdController {
     @Autowired
     private ThirdService thirdService;
 
-    @PostMapping("addThird")
+//    @PostMapping("addThird")
+    @RequestMapping("addThird")
     @ApiOperation(value = "新增第三方系统")
     public Response<ThirdVo> addThird(@Valid @RequestBody ThirdAddReq thirdAddReq) {
         return ResponseUtil.makeSuccess(thirdService.addThird(thirdAddReq));
     }
 
-    @PostMapping("updateThird")
+//    @PostMapping("updateThird")
+    @RequestMapping("updateThird")
     @ApiOperation(value = "更新第三方系统")
     public Response<ThirdVo> updateThird(@Valid @RequestBody ThirdUpdateReq thirdUpdateReq) {
         return ResponseUtil.makeSuccess(thirdService.updateThird(MyBeanUtils.myCopyProperties(thirdUpdateReq, new Third())));
     }
 
-    @PostMapping("thirdList")
+//    @PostMapping("thirdList")
+    @RequestMapping("thirdList")
     @ApiOperation(value = "第三方系统分页获取")
     public Response<PageQueryResponse<ThirdPageVo>> thirdList(@Valid @RequestBody ThirdPageReq thirdPageReq) {
         return ResponseUtil.makeSuccess(thirdService.thirdList(thirdPageReq));
     }
 
-    @PostMapping("getUserThirdInfo")
+//    @PostMapping("getUserThirdInfo")
+    @RequestMapping("getUserThirdInfo")
     @ApiOperation(value = "获取用户在各个系统的信息")
     public Response<List<UserThirdInfoVo>> getUserThirdInfo(Long userId) {
         return ResponseUtil.makeSuccess(thirdService.getUserThirdInfo(userId));
     }
 
-    @GetMapping("queryAllThird")
+//    @GetMapping("queryAllThird")
+    @RequestMapping("queryAllThird")
     @ApiOperation(value = "获取所有第三方系统")
     public Response<List<ThirdVo>> queryAllThird() {
         return ResponseUtil.makeSuccess(thirdService.queryAllThird());

@@ -25,19 +25,22 @@ public class JurisdictionController {
     private JurisdictionService jurisdictionService;
 
 
-    @PostMapping("addJurisdiction")
+//    @PostMapping("addJurisdiction")
+    @RequestMapping("addJurisdiction")
     @ApiOperation(value = "新增权限")
     public Response<JurisdictionVo> addJurisdiction(@RequestBody JurisdictionInsertReq insertReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.addJurisdiction(insertReq));
     }
 
-    @PostMapping("updateJurisdiction")
+//    @PostMapping("updateJurisdiction")
+    @RequestMapping("updateJurisdiction")
     @ApiOperation(value = "更新权限")
     public Response<JurisdictionVo> updateJurisdiction(@RequestBody @Validated JurisdictionUpdateReq updateReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.updateJurisdiction(updateReq));
     }
 
-    @PostMapping("queryJurisdictionList")
+//    @PostMapping("queryJurisdictionList")
+    @RequestMapping("queryJurisdictionList")
     @ApiOperation(value = "获取权限列表")
     public Response<List<JurisdictionListVo>> queryJurisdictionList(@RequestBody @Validated JurisdictionListReq listReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.queryJurisdictionList(listReq));

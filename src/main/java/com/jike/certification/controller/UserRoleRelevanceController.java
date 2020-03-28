@@ -48,13 +48,15 @@ public class UserRoleRelevanceController {
 //        return ResponseUtil.makeSuccess(userRoleRelevanceService.userRoleRelevancePage(pageReq));
 //    }
 
-    @PostMapping("addUserRoleRelevance")
+//    @PostMapping("addUserRoleRelevance")
+    @RequestMapping("addUserRoleRelevance")
     @ApiOperation(value = "新增用户角色关联")
     public Response<Long> addUserRoleRelevance(@Validated @RequestBody UserRoleRelevanceInsert insert) {
         return ResponseUtil.makeSuccess(userRoleRelevanceService.addUserRoleRelevance(insert));
     }
 
-    @PostMapping("deletedRelevance")
+//    @PostMapping("deletedRelevance")
+    @RequestMapping("deletedRelevance")
     @ApiOperation(value = "删除用户角色关联")
     public Response<Boolean> deletedRelevance(Long relevanceId) {
         return ResponseUtil.makeSuccess(userRoleRelevanceService.deletedRelevance(relevanceId));

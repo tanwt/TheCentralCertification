@@ -20,7 +20,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(value =Exception.class)
     @ResponseBody
     public Response exceptionHandler(Exception e){
-        log.warn("未知错误:{}", e.getMessage());
+        log.error("未知错误:{}", e.getMessage());
         e.printStackTrace();
         return ResponseUtil.makeFail(e.getMessage());
     }
@@ -28,7 +28,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(value =RuntimeException.class)
     @ResponseBody
     public Response exceptionHandler(RuntimeException e){
-        log.warn("运行时异常:{}", e.getMessage());
+        log.error("运行时异常:{}", e.getMessage());
         e.printStackTrace();
         return ResponseUtil.makeFail(e.getMessage());
     }
@@ -36,7 +36,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(value =ApiRuntimeException.class)
     @ResponseBody
     public Response exceptionHandler(ApiRuntimeException e){
-        log.warn("逻辑错误:{}", e.getMessage());
+        log.error("逻辑错误:{}", e.getMessage());
         e.printStackTrace();
         return ResponseUtil.makeFail(e.getErrorCode());
     }

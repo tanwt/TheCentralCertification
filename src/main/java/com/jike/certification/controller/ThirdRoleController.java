@@ -28,26 +28,30 @@ public class ThirdRoleController {
     private ThirdRoleService thirdRoleService;
 
     @ApiOperation(value = "新增角色")
-    @PostMapping("addThirdRole")
+//    @PostMapping("addThirdRole")
+    @RequestMapping("addThirdRole")
     public Response<ThirdRoleVo> addThirdRole(@Validated @RequestBody ThirdRoleAddReq thirdRoleAddReq){
         ThirdRoleVo thirdRoleVo = thirdRoleService.addRole(thirdRoleAddReq);
         return ResponseUtil.makeSuccess(thirdRoleVo);
     }
 
     @ApiOperation(value = "更新角色")
-    @PostMapping("updateRole")
+//    @PostMapping("updateRole")
+    @RequestMapping("updateRole")
     public Response<ThirdRoleVo> updateRole(@Validated @RequestBody ThirdRoleUpdateReq thirdRoleUpdateReq){
         return ResponseUtil.makeSuccess(thirdRoleService.updateRole(thirdRoleUpdateReq));
     }
 
     @ApiOperation(value = "删除角色")
-    @PostMapping("deletedRole")
+//    @PostMapping("deletedRole")
+    @RequestMapping("deletedRole")
     public Response<Boolean> deletedRole(Long roleId){
         return ResponseUtil.makeSuccess(thirdRoleService.deletedRole(roleId));
     }
 
     @ApiOperation(value = "查询一个系统中的角色信息")
-    @GetMapping("selectByThirdId")
+//    @GetMapping("selectByThirdId")
+    @RequestMapping("selectByThirdId")
     public Response<List<ThirdRoleInfoVo>> selectByThirdId(Long thirdId){
         List<ThirdRoleInfoVo> thirdRoleVos = thirdRoleService.selectByThirdId(thirdId);
         return ResponseUtil.makeSuccess(thirdRoleVos);

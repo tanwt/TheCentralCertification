@@ -28,25 +28,29 @@ public class JurisdictionGroupController {
     private JurisdictionGroupService jurisdictionGroupService;
 
 
-    @PostMapping("addJurisdictionGroup")
+//    @PostMapping("addJurisdictionGroup")
+    @RequestMapping("addJurisdictionGroup")
     @ApiOperation(value = "新增权限组")
     public Response<JurisdictionGroupVo> addJurisdictionGroup(@RequestBody @Validated JurisdictionGroupInsertReq insertReq) {
         return ResponseUtil.makeSuccess(jurisdictionGroupService.addJurisdictionGroup(insertReq));
     }
 
-    @PostMapping("updateJurisdictionGroup")
+//    @PostMapping("updateJurisdictionGroup")
+    @RequestMapping("updateJurisdictionGroup")
     @ApiOperation(value = "更新权限组")
     public Response<JurisdictionGroupVo> updateJurisdictionGroup(@RequestBody @Validated JurisdictionGroupUpdateReq updateReq) {
         return ResponseUtil.makeSuccess(jurisdictionGroupService.updateJurisdictionGroup(updateReq));
     }
 
-    @PostMapping("deletedGroup")
+//    @PostMapping("deletedGroup")
+    @RequestMapping("deletedGroup")
     @ApiOperation(value = "删除权限组")
     public Response<Boolean> deletedGroup(Long groupId) {
         return ResponseUtil.makeSuccess(jurisdictionGroupService.deletedGroup(groupId));
     }
 
-    @GetMapping("getAllGroupByThirdId")
+//    @GetMapping("getAllGroupByThirdId")
+    @RequestMapping("getAllGroupByThirdId")
     @ApiOperation(value = "获取系统所有权限组")
     public Response<List<JurisdictionGroupListVo>> getAllGroupByThirdId(Long thirdId) {
         return ResponseUtil.makeSuccess(jurisdictionGroupService.getAllGroupByThirdId(thirdId));
