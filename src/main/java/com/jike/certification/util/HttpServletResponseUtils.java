@@ -23,6 +23,7 @@ public class HttpServletResponseUtils {
         cookie.setMaxAge(expiry);
         cookie.setPath("/");
         response.addCookie(cookie);
+
     }
 
     public static void deleteResponseToken(HttpServletRequest request, HttpServletResponse response){
