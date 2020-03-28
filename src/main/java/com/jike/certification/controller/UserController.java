@@ -34,29 +34,25 @@ public class UserController {
     @Autowired
     private UserTokenService userTokenService;
 
-//    @PostMapping("register")
-    @RequestMapping("register")
+    @PostMapping("register")
     @ApiOperation(value = "用户注册")
     public Response<Long> register(@Valid @RequestBody UserRegisterReq userRegisterReq){
         return ResponseUtil.makeSuccess(userService.userRegister(userRegisterReq));
     }
 
-//    @PostMapping("loginByMail")
-    @RequestMapping("loginByMail")
+    @PostMapping("loginByMail")
     @ApiOperation(value = "用户通过邮箱登陆")
     public Response<UserToken> loginByMail(@Valid @RequestBody UserLoginReq userLoginReq){
         return ResponseUtil.makeSuccess(userService.userLoginByMail(userLoginReq));
     }
 
-//    @GetMapping("checkUserToken")
-    @RequestMapping("checkUserToken")
+    @GetMapping("checkUserToken")
     @ApiOperation(value = "检查用户token")
     public Response<UserToken> checkUserToken(@NotNull String token){
         return ResponseUtil.makeSuccess(userTokenService.getUserToken(token));
     }
 
-//    @PostMapping("userPageList")
-    @RequestMapping("userPageList")
+    @PostMapping("userPageList")
     @ApiOperation(value = "用户信息分页获取")
     public Response<PageQueryResponse<UserVo>> userPageList(@RequestBody UserPageReq userPageReq){
         log.info("用户登陆请求数据:{}", userPageReq);

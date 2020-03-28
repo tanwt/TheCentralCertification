@@ -22,8 +22,7 @@ public class VerifyCodeController {
     @Autowired
     private VerifyCodeService verifyCodeService;
 
-//    @GetMapping("sendVerifyCode")
-    @RequestMapping("sendVerifyCode")
+    @GetMapping("sendVerifyCode")
     @ApiOperation(value = "发送验证码")
     public Response<Long> sendVerifyCode(String mail){
         return ResponseUtil.makeSuccess(verifyCodeService.sendVerifyCodeByMail(mail));

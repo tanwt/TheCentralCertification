@@ -1,5 +1,6 @@
 package com.jike.certification.controller;
 
+import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.model.Response;
 import com.jike.certification.model.third.*;
 import com.jike.certification.service.ThirdService;
@@ -26,36 +27,41 @@ public class ThirdController {
     @Autowired
     private ThirdService thirdService;
 
-//    @PostMapping("addThird")
-    @RequestMapping("addThird")
+    @PostMapping("addThird")
     @ApiOperation(value = "新增第三方系统")
     public Response<ThirdVo> addThird(@Valid @RequestBody ThirdAddReq thirdAddReq) {
         return ResponseUtil.makeSuccess(thirdService.addThird(thirdAddReq));
     }
 
-//    @PostMapping("updateThird")
-    @RequestMapping("updateThird")
+    @PostMapping("updateThird")
     @ApiOperation(value = "更新第三方系统")
     public Response<ThirdVo> updateThird(@Valid @RequestBody ThirdUpdateReq thirdUpdateReq) {
         return ResponseUtil.makeSuccess(thirdService.updateThird(MyBeanUtils.myCopyProperties(thirdUpdateReq, new Third())));
     }
 
-//    @PostMapping("thirdList")
-    @RequestMapping("thirdList")
+    @GetMapping("deletedThird")
+    @ApiOperation(value = "删除第三方系统")
+    public Response<ThirdVo> deletedThird(Long thirdId) {
+        ThirdUpdateReq thirdUpdateReq = ThirdUpdateReq.builder()
+                                            .id(thirdId)
+                                            .deleted(DeleteStatus.DELETED.getValue())
+                                            .build();
+        return ResponseUtil.makeSuccess(thirdService.updateThird(MyBeanUtils.myCopyProperties(thirdUpdateReq, new Third())));
+    }
+
+    @PostMapping("thirdList")
     @ApiOperation(value = "第三方系统分页获取")
     public Response<PageQueryResponse<ThirdPageVo>> thirdList(@Valid @RequestBody ThirdPageReq thirdPageReq) {
         return ResponseUtil.makeSuccess(thirdService.thirdList(thirdPageReq));
     }
 
-//    @PostMapping("getUserThirdInfo")
-    @RequestMapping("getUserThirdInfo")
+    @PostMapping("getUserThirdInfo")
     @ApiOperation(value = "获取用户在各个系统的信息")
     public Response<List<UserThirdInfoVo>> getUserThirdInfo(Long userId) {
         return ResponseUtil.makeSuccess(thirdService.getUserThirdInfo(userId));
     }
 
-//    @GetMapping("queryAllThird")
-    @RequestMapping("queryAllThird")
+    @PostMapping("queryAllThird")
     @ApiOperation(value = "获取所有第三方系统")
     public Response<List<ThirdVo>> queryAllThird() {
         return ResponseUtil.makeSuccess(thirdService.queryAllThird());

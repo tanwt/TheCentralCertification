@@ -1,5 +1,6 @@
 package com.jike.certification.controller;
 
+import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.model.Response;
 import com.jike.certification.model.jurisdiction.*;
 import com.jike.certification.service.JurisdictionService;
@@ -25,22 +26,29 @@ public class JurisdictionController {
     private JurisdictionService jurisdictionService;
 
 
-//    @PostMapping("addJurisdiction")
-    @RequestMapping("addJurisdiction")
+    @PostMapping("addJurisdiction")
     @ApiOperation(value = "新增权限")
     public Response<JurisdictionVo> addJurisdiction(@RequestBody JurisdictionInsertReq insertReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.addJurisdiction(insertReq));
     }
 
-//    @PostMapping("updateJurisdiction")
-    @RequestMapping("updateJurisdiction")
+    @PostMapping("updateJurisdiction")
     @ApiOperation(value = "更新权限")
     public Response<JurisdictionVo> updateJurisdiction(@RequestBody @Validated JurisdictionUpdateReq updateReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.updateJurisdiction(updateReq));
     }
 
-//    @PostMapping("queryJurisdictionList")
-    @RequestMapping("queryJurisdictionList")
+    @GetMapping("deletedJurisdiction")
+    @ApiOperation(value = "删除权限")
+    public Response<JurisdictionVo> deletedJurisdiction(Long jurisdictionId) {
+        JurisdictionUpdateReq updateReq = JurisdictionUpdateReq.builder()
+                                              .id(jurisdictionId)
+                                              .deleted(DeleteStatus.DELETED.getValue())
+                                              .build();
+        return ResponseUtil.makeSuccess(jurisdictionService.updateJurisdiction(updateReq));
+    }
+
+    @PostMapping("queryJurisdictionList")
     @ApiOperation(value = "获取权限列表")
     public Response<List<JurisdictionListVo>> queryJurisdictionList(@RequestBody @Validated JurisdictionListReq listReq) {
         return ResponseUtil.makeSuccess(jurisdictionService.queryJurisdictionList(listReq));
