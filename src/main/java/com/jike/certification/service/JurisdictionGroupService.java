@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -85,9 +86,11 @@ public class JurisdictionGroupService {
                                       .build();
         flag = groupBiz.updateById(group);
         List<Jurisdiction> jurisdictions = jurisdictionBiz.queryByGroupId(groupId);
-        // 删除权限组下的权限
-        jurisdictions.forEach(jurisdiction -> jurisdiction.setDeleted(DeleteStatus.DELETED.getValue()));
-        flag = jurisdictionBiz.updateBatchById(jurisdictions, jurisdictions.size());
+        if (!CollectionUtils.isEmpty(jurisdictions)) {
+            // 删除权限组下的权限
+            jurisdictions.forEach(jurisdiction -> jurisdiction.setDeleted(DeleteStatus.DELETED.getValue()));
+            flag = jurisdictionBiz.updateBatchById(jurisdictions, jurisdictions.size());
+        }
         return flag;
     }
 
