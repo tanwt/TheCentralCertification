@@ -31,7 +31,7 @@ public class RoleJurisdictionRelController {
 
     @GetMapping("deleteRelevance")
     @ApiOperation("删除角色权限关联")
-    public boolean deleteRelevance(Long relevanceId){
-        return relevanceService.deletedRel(relevanceId);
+    public Response<Boolean> deleteRelevance(Long relevanceId){
+        return ResponseUtil.makeSuccess(relevanceService.deletedRel(relevanceId));
     }
 }
