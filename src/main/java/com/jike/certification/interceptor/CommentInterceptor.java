@@ -21,8 +21,8 @@ public class CommentInterceptor extends HandlerInterceptorAdapter {
         ContextUtil.setResponse(response);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
+//        response.setHeader("Access-Control-Allow-Methods", "POST, GET");
+//        response.setHeader("Access-Control-Allow-Credentials", "true");
         return true;
     }
 
