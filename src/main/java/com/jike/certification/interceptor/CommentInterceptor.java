@@ -19,6 +19,7 @@ public class CommentInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         ContextUtil.setRequest(request);
         ContextUtil.setResponse(response);
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return true;
     }
 
