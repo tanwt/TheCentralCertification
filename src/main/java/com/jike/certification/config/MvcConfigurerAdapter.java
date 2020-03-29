@@ -45,6 +45,7 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        log.info("addCorsMappings:添加请求头");
         //添加映射路径
         registry.addMapping("/**")
             //放行哪些原始域
