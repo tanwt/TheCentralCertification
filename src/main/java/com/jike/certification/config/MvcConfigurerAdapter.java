@@ -30,6 +30,7 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        log.debug("开始拦截");
 
 //        公共拦截
         registry.addInterceptor(commentInterceptor())
@@ -45,7 +46,7 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        log.info("addCorsMappings:添加请求头");
+        log.debug("addCorsMappings:添加请求头");
         //添加映射路径
         registry.addMapping("/**")
             //放行哪些原始域
