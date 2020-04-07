@@ -56,7 +56,7 @@ public class ThirdBiz extends ServiceImpl<ThirdDao, Third> {
         }
         QueryWrapper<Third> queryWrapper = WrapperFactory.getQueryWrapper();
         if (StringUtil.checkNotEmpty(thirdPageReq.getName())) {
-            queryWrapper.likeLeft("name", thirdPageReq.getName());
+            queryWrapper.like("name", thirdPageReq.getName());
         }
         queryWrapper.orderBy(true, isAsc, "update_time");
         Pagination pagination = thirdPageReq.getPagination();
