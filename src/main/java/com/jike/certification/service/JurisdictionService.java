@@ -45,7 +45,7 @@ public class JurisdictionService {
         MyAssert.notNull(insertReq.getJurisdictionGroupId(), "权限新增数据: 权限组ID 为空");
         MyAssert.notNull(insertReq.getName(), "权限新增数据: 权限名称为空");
         Jurisdiction jurisdiction = MyBeanUtils.myCopyProperties(insertReq, new Jurisdiction());
-        Jurisdiction oldJurisdiction = jurisdictionBiz.queryByThirdIdAndName(jurisdiction.getThirdId(), jurisdiction.getName());
+        Jurisdiction oldJurisdiction = jurisdictionBiz.queryByGroupIdAndName(jurisdiction.getJurisdictionGroupId(), jurisdiction.getName());
         MyAssert.isNull(oldJurisdiction, "该权限已存在");
         jurisdictionBiz.save(jurisdiction);
         Jurisdiction newJurisdiction = jurisdictionBiz.getById(jurisdiction.getId());
@@ -63,7 +63,7 @@ public class JurisdictionService {
         MyAssert.notNull(updateReq, "权限更新数据为空");
         MyAssert.notNull(updateReq.getId(), "权限更新数据: 权限ID 为空");
         if (StringUtil.checkNotEmpty(updateReq.getName())) {
-            Jurisdiction oldJurisdiction = jurisdictionBiz.queryByThirdIdAndName(updateReq.getThirdId(), updateReq.getName());
+            Jurisdiction oldJurisdiction = jurisdictionBiz.queryByGroupIdAndName(updateReq.getJurisdictionGroupId(), updateReq.getName());
             MyAssert.isNull(oldJurisdiction, "该权限已存在");
         }
         jurisdictionBiz.updateById(MyBeanUtils.myCopyProperties(updateReq, new Jurisdiction()));

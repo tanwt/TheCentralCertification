@@ -34,6 +34,13 @@ public class JurisdictionBiz extends ServiceImpl<JurisdictionDao, Jurisdiction> 
         return jurisdictionDao.selectOne(queryWrapper);
     }
 
+    public Jurisdiction queryByGroupIdAndName(Long groupId, String name){
+        QueryWrapper queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("jurisdiction_group_id", groupId);
+        queryWrapper.eq("name", name);
+        return jurisdictionDao.selectOne(queryWrapper);
+    }
+
     public List<Jurisdiction> queryByThirdIdAndNameList(Long thirdId, List<String> nameList) {
         if (CollectionUtils.isEmpty(nameList)) {
             return Collections.EMPTY_LIST;
