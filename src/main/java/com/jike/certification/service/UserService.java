@@ -1,6 +1,7 @@
 package com.jike.certification.service;
 
 import com.jike.certification.biz.UserBiz;
+import com.jike.certification.commentEnum.DeleteStatus;
 import com.jike.certification.commentEnum.VerifyCodeEnum;
 import com.jike.certification.exception.ApiRuntimeException;
 import com.jike.certification.exception.ErrorCode;
@@ -117,6 +118,16 @@ public class UserService {
         return userPageQueryResponse.transform(v -> {
             return MyBeanUtils.myCopyProperties(v, new UserVo());
         });
+    }
+
+    public boolean deletedUser(Long userId){
+        MyAssert.notNull("用户ID 不能为空", userId);
+        User user = User.builder()
+                        .id(userId)
+                        .deleted(DeleteStatus.DELETED.getValue())
+                        .build();
+        boolean result = userBiz.updateById(user);
+        return result;
     }
 
 }

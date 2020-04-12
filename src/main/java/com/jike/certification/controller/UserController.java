@@ -8,6 +8,7 @@ import com.jike.certification.model.user.UserRegisterReq;
 import com.jike.certification.model.user.UserVo;
 import com.jike.certification.service.UserService;
 import com.jike.certification.service.UserTokenService;
+import com.jike.certification.util.ContextUtil;
 import com.jike.certification.util.PageQueryResponse;
 import com.jike.certification.util.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -57,5 +58,12 @@ public class UserController {
     public Response<PageQueryResponse<UserVo>> userPageList(@RequestBody UserPageReq userPageReq){
         log.info("用户登陆请求数据:{}", userPageReq);
         return ResponseUtil.makeSuccess(userService.userPageList(userPageReq));
+    }
+
+    @GetMapping("deletedUser")
+    @ApiOperation(value = "删除用户")
+    public Response<Boolean> deletedUser(Long userId){
+        log.info("删除用户，操作人:{} 删除的用户id:{}", ContextUtil.getUserId(), userId);
+        return ResponseUtil.makeSuccess(userService.deletedUser(userId));
     }
 }
