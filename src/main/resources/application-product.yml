@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://120.79.94.90:3306/central_certification?useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
+    password: 12345678
 
   # redis 配置
   redis:
