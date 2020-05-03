@@ -95,7 +95,7 @@ public class TokenValidateInterceptor extends HandlerInterceptorAdapter {
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("token", null);
-            response.sendRedirect("/");
+            response.sendRedirect("http://120.79.94.90");
 //            response.getWriter().write(objectMapper.writeValueAsString(
 //                ResponseUtil.makeFail(errorCode)));
         } catch (IOException e) {
