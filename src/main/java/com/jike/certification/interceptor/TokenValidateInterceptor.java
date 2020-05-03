@@ -94,8 +94,10 @@ public class TokenValidateInterceptor extends HandlerInterceptorAdapter {
         try {
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/json; charset=utf-8");
-            response.getWriter().write(objectMapper.writeValueAsString(
-                ResponseUtil.makeFail(errorCode)));
+            response.setHeader("token", null);
+            response.sendRedirect("/");
+//            response.getWriter().write(objectMapper.writeValueAsString(
+//                ResponseUtil.makeFail(errorCode)));
         } catch (IOException e) {
             log.info(e.getMessage(), e);
         }
