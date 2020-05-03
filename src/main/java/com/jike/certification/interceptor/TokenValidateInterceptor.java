@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -90,14 +91,16 @@ public class TokenValidateInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    }
+
     private boolean checkFail(HttpServletResponse response, ErrorCode errorCode) {
         try {
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/json; charset=utf-8");
-            response.setHeader("token", null);
-            response.sendRedirect("http://120.79.94.90");
-//            response.getWriter().write(objectMapper.writeValueAsString(
-//                ResponseUtil.makeFail(errorCode)));
+            response.getWriter().write(objectMapper.writeValueAsString(
+                ResponseUtil.makeFail(errorCode)));
         } catch (IOException e) {
             log.info(e.getMessage(), e);
         }
