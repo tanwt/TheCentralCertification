@@ -146,7 +146,7 @@ public class UserRoleRelevanceService {
             userRoleRelevanceListVo.setUserVo(userVo);
             return userRoleRelevanceListVo;
         });
-        CollectionUtil.filter(userRoleRelevanceListVoList, userRoleRelevanceListVo -> userRoleRelevanceListVo.getUserVo() != null);
+        userRoleRelevanceListVoList = CollectionUtil.filter(userRoleRelevanceListVoList, userRoleRelevanceListVo -> userRoleRelevanceListVo.getUserVo() != null);
         return userRoleRelevanceListVoList;
     }
 
