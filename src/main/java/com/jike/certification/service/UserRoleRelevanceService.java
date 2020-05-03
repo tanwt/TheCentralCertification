@@ -142,9 +142,11 @@ public class UserRoleRelevanceService {
         Map<Long, UserVo> userVoMap = CollectionUtil.toMap(userVoList, UserVo::getId);
         List<UserRoleRelevanceListVo> userRoleRelevanceListVoList = CollectionUtil.transformList(userRoleRelevanceList, v -> {
             UserRoleRelevanceListVo userRoleRelevanceListVo = MyBeanUtils.myCopyProperties(v, new UserRoleRelevanceListVo());
-            userRoleRelevanceListVo.setUserVo(userVoMap.get(v.getUserId()));
+            UserVo userVo = userVoMap.get(v.getUserId());
+            userRoleRelevanceListVo.setUserVo(userVo);
             return userRoleRelevanceListVo;
         });
+        CollectionUtil.filter(userRoleRelevanceListVoList, userRoleRelevanceListVo -> userRoleRelevanceListVo.getUserVo() != null);
         return userRoleRelevanceListVoList;
     }
 
