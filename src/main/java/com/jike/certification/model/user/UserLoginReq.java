@@ -25,6 +25,5 @@ public class UserLoginReq {
     @NotNull
     private String password;
     @ApiModelProperty(value = "平台id，必传")
-    @NotNull
     private Integer thirdId;
 }

@@ -44,6 +44,8 @@ public class UserController {
     @PostMapping("loginByMail")
     @ApiOperation(value = "用户通过邮箱登陆")
     public Response<UserToken> loginByMail(@Valid @RequestBody UserLoginReq userLoginReq){
+        // 暂默认为1
+        userLoginReq.setThirdId(1);
         return ResponseUtil.makeSuccess(userService.userLoginByMail(userLoginReq));
     }
 
