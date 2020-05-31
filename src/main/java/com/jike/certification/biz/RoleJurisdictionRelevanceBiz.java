@@ -38,4 +38,14 @@ public class RoleJurisdictionRelevanceBiz extends ServiceImpl<RoleJurisdictionRe
         queryWrapper.eq("jurisdiction_id", jurisdictionId);
         return relevanceDao.selectOne(queryWrapper);
     }
+
+    public List<RoleJurisdictionRelevance> selectByRoleIdListAndJurisdictionId(List<Long> roleIdList, Long jurisdictionId) {
+        if (CollectionUtils.isEmpty(roleIdList)) {
+            return Collections.EMPTY_LIST;
+        }
+        QueryWrapper queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.in("role_id", roleIdList);
+        queryWrapper.eq("jurisdiction_id", jurisdictionId);
+        return relevanceDao.selectList(queryWrapper);
+    }
 }

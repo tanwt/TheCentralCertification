@@ -1,6 +1,7 @@
 package com.jike.certification.config;
 
 import com.jike.certification.interceptor.CommentInterceptor;
+import com.jike.certification.interceptor.JurisdictionValidateInterceptor;
 import com.jike.certification.interceptor.TokenValidateInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -34,20 +35,29 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
         return new TokenValidateInterceptor();
     }
 
+    @Bean
+    public JurisdictionValidateInterceptor jurisdictionValidateInterceptor(){
+        return new JurisdictionValidateInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         log.debug("开始拦截");
 
-//        公共拦截
+        // 公共拦截
         registry.addInterceptor(commentInterceptor())
             .addPathPatterns("/api/**");
 
-//        登录验证
+        // 登录验证
         registry.addInterceptor(tokenValidateInterceptor())
             .addPathPatterns("/api/pc/**")
             .excludePathPatterns("/api/pc/user/**")
             .excludePathPatterns("/api/pc/test/**")
             .excludePathPatterns("/api/pc/verifyCode/**");
+
+        // 权限验证
+        registry.addInterceptor(jurisdictionValidateInterceptor())
+            .addPathPatterns("/**");
     }
 
     @Override

@@ -73,4 +73,9 @@ public class JurisdictionBiz extends ServiceImpl<JurisdictionDao, Jurisdiction> 
         return jurisdictionDao.selectList(queryWrapper);
     }
 
+    public Jurisdiction queryByExplain(String explain) {
+        QueryWrapper queryWrapper = WrapperFactory.getQueryWrapper();
+        queryWrapper.eq("jurisdiction_explain", explain);
+        return jurisdictionDao.selectOne(queryWrapper);
+    }
 }

@@ -56,3 +56,4 @@ swagger:
 #    key-password: 123456
 logging:
   path: /data/applogs/TheCentralCertification/
+  config: classpath:logback-spring.xml
