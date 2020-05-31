@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  */
 @RestController
 @Slf4j
-@RequestMapping(path = "api/pc/user")
+@RequestMapping(path = "/api/pc/user")
 @Api(value = "用户PC 端相关接口")
 public class UserController {
 

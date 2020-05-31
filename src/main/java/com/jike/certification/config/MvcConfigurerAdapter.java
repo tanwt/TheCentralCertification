@@ -56,8 +56,8 @@ public class MvcConfigurerAdapter implements WebMvcConfigurer {
             .excludePathPatterns("/api/pc/verifyCode/**");
 
         // 权限验证
-        registry.addInterceptor(jurisdictionValidateInterceptor())
-            .addPathPatterns("/**");
+//        registry.addInterceptor(jurisdictionValidateInterceptor())
+//            .addPathPatterns("/**");
     }
 
     @Override
