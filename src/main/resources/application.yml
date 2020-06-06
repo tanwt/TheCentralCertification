@@ -23,7 +23,7 @@ spring:
     host: smtp.qq.com
     username: 799957684@qq.com
     # 设置密码，该处的密码是QQ邮箱开启SMTP的授权码而非QQ密码
-    password: fedpazqryszubeij
+    password: tiruxivggjwobdja
     properties:
       mail:
         smtp:

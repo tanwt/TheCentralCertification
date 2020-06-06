@@ -25,7 +25,8 @@ public class SwaggerConfig {
                    .apiInfo(apiInfo())
                    .select()
                    //为当前包路径
-                   .apis(RequestHandlerSelectors.basePackage("com.jike.certification.controller"))
+                   .apis(RequestHandlerSelectors
+                             .basePackage("com.jike.certification.controller"))
                    .paths(PathSelectors.any())
                    .build();
     }
